@@ -1,4 +1,5 @@
 ### CodeSync 
-A realtime code colaboration platform
+A realtime code colaboration tool
+
 
 
