@@ -1,11 +1,37 @@
-import React, { Component } from 'react';
-
+import React, { Component } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
+import Room from './pages/Room'
+import Roomlogin from './pages/Roomlogin'
+import Homepage from './pages/Homepage'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1 className='text-red-600 text-xl p-4'>Welcome to React ...</h1>
+         <>
+      <div>
+        <Toaster
+            position = 'top-right'  
+            toastOptions = {{
+              success:{
+                theme:{
+                  primary: "green-400",
+                },
+              },
+            }}
+        ></Toaster>
+      </div>
+      <div className="App">
+        <Router>
+          <Routes>
+            <Route path='/' element={<Homepage/>} exact/>
+            <Route path="/room/:roomId" element={<Room/>}/>
+            <Route path="/room" element={<Roomlogin/>}/>
+          </Routes>
+        </Router>
+      </div>
+    </>
       </div>
     );
   }
