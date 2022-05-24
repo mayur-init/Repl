@@ -1,8 +1,14 @@
 import React from 'react'
+import Editor from '../components/Editor'
 
 function Room() {
   return (
-    <div>Room</div>
+    <div>
+      <div>
+        <Editor/>
+      </div>
+
+    </div>
   )
 }
 
