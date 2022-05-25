@@ -1,3 +1,12 @@
+.CodeMirror{
+    min-height: 100%;
+    font-size: 16px;
+    line-height:2rem;
+    margin-left: 7px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
 @tailwind base;
 @tailwind components;
 

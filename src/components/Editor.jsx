@@ -1,6 +1,7 @@
 import React from 'react'
 
 function Editor() {
+  
   return (
     <div className='bg-zinc-800 p-4 h-screen flex flex-col min-w-max'>
       <div className='flex flex-row justify-between'>
