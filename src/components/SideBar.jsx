@@ -19,8 +19,8 @@ function SideBar() {
         <div className='flex flex-col min-w-max h-full justify-between'>
             <h1 className='text-2xl text-zinc-400 m-4'>Code<span>Sync</span></h1>
             <div className='flex flex-col'>
-                <button className='btn btn-primary self-center m-2'>Invite</button>
-                <button onClick={leaveRoom} className='btn btn-danger self-center m-2'>Exit</button>
+                <button className='btn btn-primary self-start m-2'>Invite</button>
+                <button onClick={leaveRoom} className='btn btn-primary self-start m-2'>Exit</button>
             </div>
         </div>
     )

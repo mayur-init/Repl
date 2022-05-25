@@ -2,24 +2,19 @@
     min-height: 100%;
     font-size: 16px;
     line-height:2rem;
-    margin-left: 7px;
-    padding: 10px;
-    border-radius: 5px;
+    border-radius: 8px;
 }
 
 @tailwind base;
 @tailwind components;
 
 .btn{
- @apply text-white px-2 py-1 w-20 h-8 rounded-md
+ @apply text-zinc-400 px-2 w-20 h-8 rounded-md hover:text-zinc-500
 }
 
 .btn-primary{
-    @apply bg-green-500 hover:bg-green-600
+    @apply bg-transparent border-zinc-400 border-2 hover:border-zinc-500
 }
 
-.btn-danger{
-    @apply bg-red-500 hover:bg-red-600
-}
 
 @tailwind utilities;

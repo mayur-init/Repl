@@ -39,21 +39,21 @@ function Roomlogin() {
   }
 
   return (
-    <div className='bg-zinc-800 h-screen grid place-items-center min-w-max p-4'>
+    <div className='bg-zinc-900 h-screen grid place-items-center min-w-max p-4'>
 
-      <div className='container bg-zinc-700 w-1/4 p-7 flex flex-col rounded-xl min-w-max'>
-        <h1 className='text-2xl text-white mb-6'>Code<span className='text-green-500 px-1'>Sync</span></h1>
+      <div className='container bg-zinc-800 w-1/4 p-7 flex flex-col rounded-xl min-w-max'>
+        <h1 className='text-2xl text-zinc-400 mb-6'>Code<span className='text-zinc-500 px-1'>Sync</span></h1>
        
-        <h4 className='text-white py-2'>Paste your room Id</h4>
-        <input type='text' onChange={(e) =>{setRoomId(e.target.value)}} value={roomId} onKeyUp={handleInputEnter} placeholder='roomId' className='px-3 py-1 mb-6 rounded-md'></input>
+        <h4 className='text-zinc-400 py-2'>Paste your room Id</h4>
+        <input type='text' onChange={(e) =>{setRoomId(e.target.value)}} value={roomId} onKeyUp={handleInputEnter} placeholder='roomId' className='px-3 py-1 mb-6 bg-zinc-200 rounded-md'></input>
 
-        <input type='text' onChange={(e) =>{setUserName(e.target.value)}} value={userName} onKeyUp={handleInputEnter} placeholder='username' className='px-3 py-1 mb-6 rounded-md'></input>
+        <input type='text' onChange={(e) =>{setUserName(e.target.value)}} value={userName} onKeyUp={handleInputEnter} placeholder='username' className='px-3 py-1 mb-6 bg-zinc-200 rounded-md'></input>
 
-        <button onClick={joinRoom} className='btn btn-primary self-end '>Join</button>
+        <button onClick={joinRoom} className='btn btn-primary self-end'>Join</button>
 
-        <span className='text-white py-1 text-sm self-end'>
+        <span className='text-zinc-500 py-1 text-sm self-end'>
           if you haven't an invite then create&nbsp;
-          <button onClick={createNewRoom} className='text-green-500 hover:text-green-600 pt-2'>new room</button>
+          <button onClick={createNewRoom} className='text-zinc-400 hover:text-zinc-500 pt-2'>new room</button>
         </span>
       </div>
     </div>

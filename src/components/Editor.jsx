@@ -1,7 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import CodeMirror from 'codemirror';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/material-darker.css';
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/addon/edit/closetag';
 
 function Editor() {
   
+  useEffect(() =>{
+    async function init(){
+      CodeMirror.fromTextArea(document.getElementById('editor'),{
+        mode: {name: 'javascript', json: true},
+        theme:'material-darker',
+        autoCloseTags: true,
+        autoCloseBrackets: true,
+        lineNumbers: true,
+      });
+    }
+
+    init();
+  },[]);
+
   return (
     <div className='bg-zinc-800 p-4 h-screen flex flex-col min-w-max'>
       <div className='flex flex-row justify-between'>
