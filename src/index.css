@@ -9,4 +9,8 @@
     @apply bg-green-500 hover:bg-green-600
 }
 
+.btn-danger{
+    @apply bg-red-500 hover:bg-red-600
+}
+
 @tailwind utilities;
