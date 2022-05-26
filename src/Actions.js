@@ -2,7 +2,7 @@ const ACTIONS = {
 
     JOIN: 'join',
     JOINED: 'joined',
-    DISCONNECT: 'dicsconnected',
+    DISCONNECTED: 'dicsconnected',
     CODE_CHANGE: 'code-change',
     SYNC_CODE: 'sync-code',
     LEAVE: 'leave',

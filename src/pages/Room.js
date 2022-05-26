@@ -22,7 +22,6 @@ function Room() {
       socketRef.current.on('connect_failed', (err) => handleErrors(err));
 
       //console.log(roomId);
-
       const handleErrors = (err) => {
         console.log(`socket error ${err}`);
         toast.error('Socket connection failed, try again later.');
@@ -40,18 +39,33 @@ function Room() {
       socketRef.current.on(ACTIONS.JOINED, ({clients, userName, socketId}) =>{
         
         if(userName !== location.state?.userName){
-          toast.success(`${userName} joined`);
+          toast.success(`${userName} joined the room`);
           //console.log(`${userName} joined`);
         }
         setClients(clients);
         //console.log(clients);
       })
+
+      //listening for disconnected event
+      socketRef.current.on(ACTIONS.DISCONNECTED, ({socketId, userName}) =>{
+        toast.success(`${userName} left the room`);
+        setClients((prev) =>{
+          return prev.filter((client) => client.socketId !== socketId);
+        })
+  
+      })
     }
 
     init();
-    //console.log(clients);
-  }, []);
 
+    //cleaning function
+    return () =>{
+      socketRef.current.disconnect();
+      socketRef.current.off(ACTIONS.JOINED);
+      socketRef.current.off(ACTIONS.DISCONNECTED);
+      disconnect();
+    }
+  }, []);
 
   return (
     <div>

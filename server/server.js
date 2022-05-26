@@ -39,7 +39,23 @@ io.on('connection', (socket) =>{
                 socketId: socket.id,    
             })
         })
+        //console.log(userSocketMap);
     })
+
+    //disconnecting client
+    socket.on('disconnecting', () =>{
+        const rooms = [...socket.rooms];
+        rooms.forEach((roomId) =>{
+            socket.in(roomId).emit(ACTIONS.DISCONNECTED, {
+                socketId: socket.id,
+                userName: userSocketMap[socket.id],
+            })
+        });
+        delete userSocketMap[socket.id];
+        //console.log(userSocketMap);
+        socket.leave();
+    })
+
 })
 
 app.get('/', (req, res)=>{

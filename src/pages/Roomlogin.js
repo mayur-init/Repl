@@ -14,6 +14,7 @@ function Roomlogin() {
     e.preventDefault();
     const id = uuidv4();
     setRoomId(id);
+    toast.success('Created new room');
     //console.log(id);
   }
 
