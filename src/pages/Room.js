@@ -63,7 +63,6 @@ function Room() {
       socketRef.current.disconnect();
       socketRef.current.off(ACTIONS.JOINED);
       socketRef.current.off(ACTIONS.DISCONNECTED);
-      disconnect();
     }
   }, []);
 
@@ -71,7 +70,7 @@ function Room() {
     <div>
       <div className='flex flex-row'>
         <div className='w-1/12 h-screen bg-zinc-900 p-4 min-w-max'><SideBar clients={clients}/></div>
-        <div className='w-11/12'><Editor /></div>
+        <div className='w-11/12'><Editor socketRef={socketRef} roomId={roomId}/></div>
       </div>
 
     </div>

@@ -40,7 +40,14 @@ io.on('connection', (socket) =>{
             })
         })
         //console.log(userSocketMap);
-    })
+    });
+
+    //listening for code-change
+    socket.on(ACTIONS.CODE_CHANGE, ({roomId, code}) =>{
+        //emiting code to all the clients in the room
+        //console.log(code);
+        socket.to(roomId).emit(ACTIONS.CODE_CHANGE, {code});
+    });
 
     //disconnecting client
     socket.on('disconnecting', () =>{
