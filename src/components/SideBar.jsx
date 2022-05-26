@@ -1,24 +1,44 @@
-import React, {useEffect} from 'react'
-import { useNavigate} from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast'
+import Client from '../components/Client';
 
 function SideBar() {
 
+    const [clients, setClients] = useState([
+        { socketId: 1, userName: 'Mayur' },
+        { socketId: 2, userName: 'Rohan' },
+    ]);
     const reactNavigator = useNavigate();
     useEffect(() => {
-     toast.success(`User has joined`);
+        toast.success(`User has joined`);
     }, [])
-    
+
     const leaveRoom = () => {
         toast.success('User has leaved the room');
         //redirect to login page
         reactNavigator('/room');
-      };
+    };
 
     return (
         <div className='flex flex-col min-w-max h-full justify-between'>
-            <h1 className='text-2xl text-zinc-400 m-4'>Code<span>Sync</span></h1>
-            <div className='flex flex-col'>
+            <div>
+                <h1 className='text-2xl text-zinc-400 m-4'>Code<span>Sync</span></h1>
+                <hr className='border-zinc-800 bottom-2' />
+                <h3 className='text-zinc-400 my-2'>Connected <span className='text-zinc-600 bg-transparent border-zinc-600 border-2 rounded-full m-1 px-2'>{clients.length}</span></h3>
+                <hr className='border-zinc-800 bottom-2' />
+                <div className='clientList'>
+                    {
+                        clients.map((client) => (
+                            <Client
+                                key={client.socketId}
+                                userName={client.userName}
+                            />
+                        ))
+                    }
+                </div>
+            </div>
+            <div className='flex flex-col justify-end'>
                 <button className='btn btn-primary self-start m-2'>Invite</button>
                 <button onClick={leaveRoom} className='btn btn-primary self-start m-2'>Exit</button>
             </div>
