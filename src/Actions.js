@@ -1,4 +1,4 @@
-export const ACTIONS = {
+const ACTIONS = {
 
     JOIN: 'join',
     JOINED: 'joined',
@@ -7,3 +7,5 @@ export const ACTIONS = {
     SYNC_CODE: 'sync-code',
     LEAVE: 'leave',
 };
+
+module.exports = {ACTIONS};

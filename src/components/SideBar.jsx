@@ -3,16 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast'
 import Client from '../components/Client';
 
-function SideBar() {
+function SideBar(props) {
 
-    const [clients, setClients] = useState([
-        { socketId: 1, userName: 'Mayur' },
-        { socketId: 2, userName: 'Rohan' },
-    ]);
+    const clients = props.clients;
+    //console.log(props);
     const reactNavigator = useNavigate();
-    useEffect(() => {
-        toast.success(`User has joined`);
-    }, [])
+    
 
     const leaveRoom = () => {
         toast.success('User has leaved the room');
