@@ -46,7 +46,7 @@ io.on('connection', (socket) =>{
     socket.on(ACTIONS.CODE_CHANGE, ({roomId, code}) =>{
         //emiting code to all the clients in the room
         //console.log(code);
-        socket.to(roomId).emit(ACTIONS.CODE_CHANGE, {code});
+        socket.in(roomId).emit(ACTIONS.CODE_CHANGE, {code});
     });
 
     //disconnecting client

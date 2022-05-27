@@ -28,12 +28,13 @@ function Editor({ socketRef, roomId }) {
         //console.log(changes[0].origin); //origin cut or input or paste or setValue
         //editorRef.current.setValue(`console.log('Hello world`)); //dynamic input 
 
-        const { origin } = changes;
+        const origin = changes[0].origin;
         const code = instance.getValue();
         //console.log(code);
 
         //emiting code-change
         //console.log('emiting code...');
+        //console.log(origin);
         if (origin !== 'setValue') {
           socketRef.current.emit(ACTIONS.CODE_CHANGE,{
             roomId,
@@ -54,7 +55,7 @@ function Editor({ socketRef, roomId }) {
     if (socketRef.current) {
       //listening for code-change
       socketRef.current.on(ACTIONS.CODE_CHANGE, ({ code }) => {
-        console.log(code);
+        //console.log(code);
         if (code !== null) {
           editorRef.current.setValue(code);
         }
