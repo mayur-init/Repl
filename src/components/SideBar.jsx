@@ -13,7 +13,7 @@ function SideBar(props) {
         try {
             //console.log(props.roomId);
             await navigator.clipboard.writeText(props.roomId);
-            toast.success('roomId copied to clipboard')
+            toast.success('Room ID copied to clipboard')
         }
         catch (err) {
             toast.error('could not copy roomId ')
@@ -22,7 +22,7 @@ function SideBar(props) {
 
     const leaveRoom = () => {
         //redirect to login page
-        reactNavigator('/room');
+        reactNavigator('/');
     };
 
     return (
