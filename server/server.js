@@ -49,6 +49,15 @@ io.on('connection', (socket) =>{
         socket.in(roomId).emit(ACTIONS.CODE_CHANGE, {code});
     });
 
+    //listening for sync-code
+    socket.on(ACTIONS.SYNC_CODE, ({code, socketId}) =>{
+        //emiting code to all the clients in the room
+        //console.log(code);
+        //console.log(socketId);
+        
+        io.to(socketId).emit(ACTIONS.SYNC_CODE, {code});
+    });
+
     //disconnecting client
     socket.on('disconnecting', () =>{
         const rooms = [...socket.rooms];

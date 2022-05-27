@@ -7,7 +7,7 @@ import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
 import { ACTIONS } from '../Actions';
 
-function Editor({ socketRef, roomId }) {
+function Editor({ socketRef, roomId , onCodeChange}) {
 
   let editorRef = useRef(null);
 
@@ -35,19 +35,26 @@ function Editor({ socketRef, roomId }) {
         //emiting code-change
         //console.log('emiting code...');
         //console.log(origin);
+        //passing props to parent component
+        onCodeChange(code);
+
         if (origin !== 'setValue') {
           socketRef.current.emit(ACTIONS.CODE_CHANGE,{
             roomId,
             code
           })
           //console.log(code);
-        }
+        } 
 
       });
 
     }
-
     init();
+
+    //cleaning function
+    return () =>{
+      socketRef.current.off(ACTIONS.CODE_CHANGE);
+    }
   }, []);
 
   useEffect(() => {
@@ -60,8 +67,20 @@ function Editor({ socketRef, roomId }) {
           editorRef.current.setValue(code);
         }
       }) 
+
+      //listening for sync-code
+      socketRef.current.on(ACTIONS.SYNC_CODE, ({code}) =>{
+        if(code != null){
+          editorRef.current.setValue(code);
+        }
+      })
     }
 
+    //cleaning function
+    return () =>{
+      socketRef.current.off(ACTIONS.CODE_CHANGE);
+      socketRef.current.off(ACTIONS.SYNC_CODE);
+    }
   }, [socketRef.current]);
 
   return (

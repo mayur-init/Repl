@@ -8,10 +8,19 @@ function SideBar(props) {
     const clients = props.clients;
     //console.log(props);
     const reactNavigator = useNavigate();
-    
+
+    const copyRoomId = async () => {
+        try {
+            //console.log(props.roomId);
+            await navigator.clipboard.writeText(props.roomId);
+            toast.success('roomId copied to clipboard')
+        }
+        catch (err) {
+            toast.error('could not copy roomId ')
+        }
+    };
 
     const leaveRoom = () => {
-        toast.success('User has leaved the room');
         //redirect to login page
         reactNavigator('/room');
     };
@@ -35,7 +44,7 @@ function SideBar(props) {
                 </div>
             </div>
             <div className='flex flex-col justify-end'>
-                <button className='btn btn-primary self-start m-2'>Invite</button>
+                <button onClick={copyRoomId} className='btn btn-primary self-start m-2'>Invite</button>
                 <button onClick={leaveRoom} className='btn btn-primary self-start m-2'>Exit</button>
             </div>
         </div>

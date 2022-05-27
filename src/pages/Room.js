@@ -9,6 +9,7 @@ import toast from 'react-hot-toast'
 function Room() {
 
   const socketRef = useRef(null);
+  let codeRef = useRef(null);
   const location = useLocation();
   const { roomId } = useParams();
   const reactNavigator = useNavigate();
@@ -44,6 +45,13 @@ function Room() {
         }
         setClients(clients);
         //console.log(clients);
+        //console.log(socketId);
+        //syncing code
+        socketRef.current.emit(ACTIONS.SYNC_CODE,{
+          code: codeRef.current,
+          socketId,
+        });
+        
       })
 
       //listening for disconnected event
@@ -69,8 +77,8 @@ function Room() {
   return (
     <div>
       <div className='flex flex-row'>
-        <div className='w-1/12 h-screen bg-zinc-900 p-4 min-w-max'><SideBar clients={clients}/></div>
-        <div className='w-11/12'><Editor socketRef={socketRef} roomId={roomId}/></div>
+        <div className='w-1/12 h-screen bg-zinc-900 p-4 min-w-max'><SideBar clients={clients} roomId={roomId}/></div>
+        <div className='w-11/12'><Editor socketRef={socketRef} roomId={roomId} onCodeChange={(code) => codeRef.current = code}/></div>
       </div>
 
     </div>
