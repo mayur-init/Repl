@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CodeMirror from 'codemirror';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material-darker.css';
@@ -84,12 +84,17 @@ function Editor({ socketRef, roomId , onCodeChange}) {
     }
   }, [socketRef.current]);
 
+  let [lang, setlang] = useState('C++');
+  let langId = '72';
+
   return (
     <div className='bg-zinc-800 p-4 h-screen flex flex-col min-w-max'>
       <div className='flex flex-row justify-between'>
         <h1 className='text-2xl text-zinc-400 m-4'>Code Playground</h1>
         <div className='self-center flex flex-row'>
-          <Dropdown options={['C++', 'Java', 'Python']} onOptionSelect={(option) =>{console.log(option)}}/>
+          <Dropdown options={['C++', 'Java', 'Python']} onOptionSelect={(option) =>{
+            //do something
+            }}/>
           <button className='btn btn-primary mx-4'>Run</button>
         </div>
 
