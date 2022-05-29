@@ -5,7 +5,7 @@ function Dropdown({ options, onOptionSelect}) {
 
     const [isActive, setActive] = useState(false);
     const buttonClasses = 'text-xl text-zinc-400 hover:text-zinc-500 px-4';
-    let [lang, setlang] = useState('C++');
+    let [lang, setLang] = useState('C++');
     return (
         <div>
             <button onClick={() => setActive(!isActive)} className={buttonClasses}>{lang}</button>
@@ -13,7 +13,7 @@ function Dropdown({ options, onOptionSelect}) {
                 block: isActive,
                 hidden: !isActive
             })}>
-            {options.map((option) => <div className={classNames('text-zinc-300 hover:bg-zinc-700 rounded-md p-2')} key={option} onClick={(e) => {onOptionSelect(option); setlang(option); setActive(!isActive)}}>{option}</div>)}
+            {options.map((option) => <div className={classNames('text-zinc-300 hover:bg-zinc-700 rounded-md p-2')} key={option} onClick={(e) => {onOptionSelect(option); setLang(option); setActive(!isActive)}}>{option}</div>)}
         </div>
         </div >
     )

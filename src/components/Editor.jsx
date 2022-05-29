@@ -11,6 +11,7 @@ import Dropdown from './Dropdown';
 function Editor({ socketRef, roomId , onCodeChange}) {
 
   let editorRef = useRef(null);
+  let inputRef = useRef('');
 
   useEffect(() => {
     async function init() {
@@ -23,7 +24,7 @@ function Editor({ socketRef, roomId , onCodeChange}) {
         lineNumbers: true,
       });
 
-      //listening for editor text change event
+      //listening for editor code change event
       editorRef.current.on('changes', (instance, changes) => {
 
         //console.log(changes[0].origin); //origin cut or input or paste or setValue
@@ -86,8 +87,13 @@ function Editor({ socketRef, roomId , onCodeChange}) {
 
   let [lang, setlang] = useState('C++');
   let langId = '72';
-  const ioClass = 'text-xl bg-zinc-800 ml-2 mt-1 h-1/2 text-zinc-200 p-4 rounded-md border-2 border-zinc-500'
-  
+  const ioClass = 'text-xl text-zinc-400 bg-zinc-800 ml-2 mt-1 h-1/2 p-4 rounded-md border-2 border-zinc-500'
+
+
+ async function RunCode(){
+   //make a axios call to the server
+   
+ }
 
 
   return (
@@ -98,9 +104,8 @@ function Editor({ socketRef, roomId , onCodeChange}) {
           <Dropdown options={['C++', 'Java', 'Python']} onOptionSelect={(option) =>{
             //do something
             }}/>
-          <button className='btn btn-primary mx-4'>Run</button>
+          <button className='btn btn-primary mx-4' onClick={RunCode}>Run</button>
         </div>
-
       </div>
 
       <div className='flex flex-row h-screen'>
@@ -108,8 +113,8 @@ function Editor({ socketRef, roomId , onCodeChange}) {
           <textarea id='editor' className='p-2 bg-zinc-800 text-zinc-200 text-xl border-2 border-zinc-500 w-full rounded-md h-full'></textarea>
         </div>
         <div className='flex flex-col w-1/3'>
-          <textarea className={ioClass}  placeholder='Input'></textarea>
-          <textarea className={ioClass} placeholder='Output'></textarea>
+          <textarea className={ioClass} spellCheck='false' placeholder='Input'onChange={(e) => {inputRef.current = e.target.value}}></textarea>
+          <div className={ioClass} onChange={(e) => {outputRef = e.target.value}}><p className='text-xl text-zinc-400'>Output</p></div>
         </div>
       </div>
     </div>
