@@ -86,6 +86,9 @@ function Editor({ socketRef, roomId , onCodeChange}) {
 
   let [lang, setlang] = useState('C++');
   let langId = '72';
+  const ioClass = 'text-xl bg-zinc-800 ml-2 mt-1 h-1/2 text-zinc-200 p-4 rounded-md border-2 border-zinc-500'
+  
+
 
   return (
     <div className='bg-zinc-800 p-4 h-screen flex flex-col min-w-max'>
@@ -105,8 +108,8 @@ function Editor({ socketRef, roomId , onCodeChange}) {
           <textarea id='editor' className='p-2 bg-zinc-800 text-zinc-200 text-xl border-2 border-zinc-500 w-full rounded-md h-full'></textarea>
         </div>
         <div className='flex flex-col w-1/3'>
-          <textarea className='text-xl bg-zinc-800 ml-2 mb-1 h-1/2 text-zinc-200 p-4 rounded-md border-2 border-zinc-500' placeholder='Input'></textarea>
-          <textarea className='text-xl bg-zinc-800 ml-2 mt-1 h-1/2 text-zinc-200 p-4 rounded-md border-2 border-zinc-500' placeholder='Output'></textarea>
+          <textarea className={ioClass}  placeholder='Input'></textarea>
+          <textarea className={ioClass} placeholder='Output'></textarea>
         </div>
       </div>
     </div>
