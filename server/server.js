@@ -58,6 +58,12 @@ io.on('connection', (socket) =>{
         io.to(socketId).emit(ACTIONS.SYNC_CODE, {code});
     });
 
+    //listening for language change
+    socket.on('lang_change', ({lang, roomId}) =>{
+        socket.in(roomId).emit('lang_change', {lang});
+        //console.log(lang +' '+ roomId);
+    })
+
     //disconnecting client
     socket.on('disconnecting', () =>{
         const rooms = [...socket.rooms];

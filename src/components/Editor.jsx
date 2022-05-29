@@ -13,6 +13,7 @@ function Editor({ socketRef, roomId , onCodeChange}) {
   let editorRef = useRef(null);
   let inputRef = useRef('');
 
+
   useEffect(() => {
     async function init() {
       editorRef.current = CodeMirror.fromTextArea(document.getElementById('editor'), {
@@ -52,6 +53,7 @@ function Editor({ socketRef, roomId , onCodeChange}) {
 
     }
     init();
+    
 
     //cleaning function
     return () =>{
@@ -76,6 +78,7 @@ function Editor({ socketRef, roomId , onCodeChange}) {
           editorRef.current.setValue(code);
         }
       })
+
     }
 
     //cleaning function
@@ -85,8 +88,6 @@ function Editor({ socketRef, roomId , onCodeChange}) {
     }
   }, [socketRef.current]);
 
-  let [lang, setlang] = useState('C++');
-  let langId = '72';
   const ioClass = 'text-xl text-zinc-400 bg-zinc-800 ml-2 mt-1 h-1/2 p-4 rounded-md border-2 border-zinc-500'
 
 
@@ -94,7 +95,7 @@ function Editor({ socketRef, roomId , onCodeChange}) {
    //make a axios call to the server
    
  }
-
+  
 
   return (
     <div className='bg-zinc-800 p-4 h-screen flex flex-col min-w-max'>
@@ -102,8 +103,11 @@ function Editor({ socketRef, roomId , onCodeChange}) {
         <h1 className='text-2xl text-zinc-400 m-4'>Code Playground</h1>
         <div className='self-center flex flex-row'>
           <Dropdown options={['C++', 'Java', 'Python']} onOptionSelect={(option) =>{
-            //do something
-            }}/>
+             socketRef.current.emit('lang_change',{
+               lang: option,
+               roomId
+             });
+            }} />
           <button className='btn btn-primary mx-4' onClick={RunCode}>Run</button>
         </div>
       </div>
