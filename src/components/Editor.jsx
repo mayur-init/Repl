@@ -11,7 +11,7 @@ import Dropdown from './Dropdown';
 function Editor({ socketRef, roomId , onCodeChange}) {
 
   let editorRef = useRef(null);
-  let inputRef = useRef('');
+  let [input, setInput] = useState('');
 
 
   useEffect(() => {
@@ -79,12 +79,20 @@ function Editor({ socketRef, roomId , onCodeChange}) {
         }
       })
 
+      //listening to input_change
+      socketRef.current.on('input_change', ({input}) =>{
+        setInput(input);
+        //console.log(input);
+        const inputConsole = document.getElementById('input');
+        inputConsole.value = input;
+      })
     }
 
     //cleaning function
     return () =>{
       socketRef.current.off(ACTIONS.CODE_CHANGE);
       socketRef.current.off(ACTIONS.SYNC_CODE);
+      socketRef.current.off('input_change')
     }
   }, [socketRef.current]);
 
@@ -107,7 +115,7 @@ function Editor({ socketRef, roomId , onCodeChange}) {
                lang: option,
                roomId
              });
-            }} />
+            }} socketRef={socketRef}/>
           <button className='btn btn-primary mx-4' onClick={RunCode}>Run</button>
         </div>
       </div>
@@ -117,8 +125,14 @@ function Editor({ socketRef, roomId , onCodeChange}) {
           <textarea id='editor' className='p-2 bg-zinc-800 text-zinc-200 text-xl border-2 border-zinc-500 w-full rounded-md h-full'></textarea>
         </div>
         <div className='flex flex-col w-1/3'>
-          <textarea className={ioClass} spellCheck='false' placeholder='Input'onChange={(e) => {inputRef.current = e.target.value}}></textarea>
-          <div className={ioClass} onChange={(e) => {outputRef = e.target.value}}><p className='text-xl text-zinc-400'>Output</p></div>
+          <textarea className={ioClass} id='input' spellCheck='false' placeholder='Input' onChange={(e) => {
+            input = e.target.value;
+            socketRef.current.emit('input_change',{
+              input,
+              roomId
+            })
+            }}></textarea>
+          <div className={ioClass} id='output' onChange={(e) => {outputRef = e.target.value}}><p className='text-xl text-zinc-400'>Output</p></div>
         </div>
       </div>
     </div>

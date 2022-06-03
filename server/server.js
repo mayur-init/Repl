@@ -64,6 +64,12 @@ io.on('connection', (socket) =>{
         //console.log(lang +' '+ roomId);
     })
 
+    //listening to input change
+    socket.on('input_change', ({input, roomId}) =>{
+        //console.log(inputRef);
+        socket.in(roomId).emit('input_change', {input});
+    })
+
     //disconnecting client
     socket.on('disconnecting', () =>{
         const rooms = [...socket.rooms];
