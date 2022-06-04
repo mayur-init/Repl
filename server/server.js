@@ -2,7 +2,8 @@ const express = require('express');
 const http = require('http');
 const {Server} = require('socket.io');
 const { ACTIONS } = require('../src/Actions');
-const axios = require('axios');
+const router = express.Router();
+const codeRunController = require('./codeRunController');
 
 const PORT = process.env.PORT || 5000;
 
@@ -87,8 +88,7 @@ io.on('connection', (socket) =>{
 
 })
 
-app.get('/', (req, res)=>{
-    res.send(`<h3>Express server is running...<h3>`);
-})
+router.get('/', (req, res) =>{res.send('<h3>Express server is running...</h3>')});
+router.post('/compile', codeRunController.codeRun);
 
 server.listen(PORT, () => {console.log(`listening on port ${PORT}...`)});
