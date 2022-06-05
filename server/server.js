@@ -4,10 +4,15 @@ const {Server} = require('socket.io');
 const { ACTIONS } = require('../src/Actions');
 const router = express.Router();
 const codeRunController = require('./codeRunController');
+const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 5000;
 
 const app = express();
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use(router);
+
 const server = http.createServer(app);
 const io = new Server(server);
 
@@ -88,7 +93,7 @@ io.on('connection', (socket) =>{
 
 })
 
-router.get('/', (req, res) =>{res.send('<h3>Express server is running...</h3>')});
+router.get('/', (req, res) =>{res.send('<h2>Express server is running ...</h2>')});
 router.post('/compile', codeRunController.codeRun);
 
 server.listen(PORT, () => {console.log(`listening on port ${PORT}...`)});

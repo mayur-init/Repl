@@ -12,8 +12,9 @@ import axios from 'axios';
 function Editor({ socketRef, roomId , onCodeChange}) {
 
   let editorRef = useRef(null);
-  let [input, setInput] = useState('');
-
+  let [input, setInput] = useState(null);
+  let lang = 'C++';
+  let source_code = '';
 
   useEffect(() => {
     async function init() {
@@ -34,6 +35,8 @@ function Editor({ socketRef, roomId , onCodeChange}) {
 
         const origin = changes[0].origin;
         const code = instance.getValue();
+        source_code = code;
+        //console.log(source_code);
         //console.log(code);
 
         //emiting code-change
@@ -99,11 +102,32 @@ function Editor({ socketRef, roomId , onCodeChange}) {
 
   const ioClass = 'text-xl text-zinc-400 bg-zinc-800 ml-2 mt-1 h-1/2 p-4 rounded-md border-2 border-zinc-500'
 
+  const replacerFunc = () => {
+    const visited = new WeakSet();
+    return (key, value) => {
+      if (typeof value === "object" && value !== null) {
+        if (visited.has(value)) {
+          return;
+        }
+        visited.add(value);
+      }
+      return value;
+    };
+  };
 
- async function RunCode(){
+async function RunCode(){
    //make a axios call to the server
-
-   
+   //console.log(source_code);
+   const data = {
+     lang,
+     source_code,
+     input
+   }
+   const response = await axios({
+     method: 'post',
+     url: '/compile',
+     data: JSON.parse(JSON.stringify(data, replacerFunc() ))
+   });
  }
   
 
@@ -113,6 +137,7 @@ function Editor({ socketRef, roomId , onCodeChange}) {
         <h1 className='text-2xl text-zinc-400 m-4'>Code Playground</h1>
         <div className='self-center flex flex-row'>
           <Dropdown options={['C++', 'Java', 'Python']} onOptionSelect={(option) =>{
+            lang = option;
              socketRef.current.emit('lang_change',{
                lang: option,
                roomId

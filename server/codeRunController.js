@@ -1,4 +1,3 @@
-
 const API_KEY = process.env.API_KEY;
 const BASE_URL = process.env.BASE_URL;
 
@@ -66,8 +65,9 @@ const codeRunController = {
 
     async codeRun(req, res) {
         try {
-            const token = await make_submission();
-            const respose = await get_result(token);
+            console.log(req.body);
+            //const token = await make_submission();
+            //const respose = await get_result(token);
         } catch (err) {
             console.log(err);
         }
