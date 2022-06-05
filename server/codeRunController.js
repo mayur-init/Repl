@@ -1,14 +1,18 @@
-const API_KEY = process.env.API_KEY;
-const BASE_URL = process.env.BASE_URL;
+const axios = require('axios');
+const config = require('./config');
+
+const API_KEY = config.API_KEY;
+const BASE_URL = config.BASE_URL;
 
 const codeRunController = {
 
     async make_submission(lang_id, source_code, input) {
         let data = {
             "language_id": lang_id,
-            "source_code": source_code,
+            "source_code": Buffer.from(source_code).toString('base64'),
             "stdin": input,
         }
+
         const options = {
             method: 'POST',
             url: BASE_URL,
@@ -48,15 +52,16 @@ const codeRunController = {
             const result = response.data
             //console.log(result);
 
-            if (result.compile_output) {
+            /*if (result.compile_output) {
                 console.log('\n' + Buffer.from(result.compile_output, 'base64').toString('ascii'));
             } else {
                 console.log(`\nlang_name:${result.language.name}`)
                 console.log('stdout:', Buffer.from(result.stdout, 'base64').toString('ascii'));
                 console.log(`execution_time:${result.time}s`);
                 console.log(`memory:${result.memory}kb`);
-            }
+            }*/
 
+            return result;
 
         } catch (err) {
             console.log(err);
@@ -64,10 +69,22 @@ const codeRunController = {
     },
 
     async codeRun(req, res) {
+        const langs = new Map([
+            ['C', 50],
+            ['C++', 54],
+            ['Java', 62],
+            ['Javascript', 63],
+            ['Python', 71]
+
+        ]);
         try {
-            console.log(req.body);
-            //const token = await make_submission();
-            //const respose = await get_result(token);
+            //console.log(req.body);
+            let lang_id = langs.get(req.body.lang);
+            //console.log(lang_id);
+            const token = await codeRunController.make_submission(lang_id, req.body.source, req.body.input);
+            const response = await codeRunController.get_result(token);
+            //console.log(response);
+            res.send(response);
         } catch (err) {
             console.log(err);
         }

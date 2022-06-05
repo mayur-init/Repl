@@ -8,13 +8,15 @@ import 'codemirror/addon/edit/closebrackets';
 import { ACTIONS } from '../Actions';
 import Dropdown from './Dropdown';
 import axios from 'axios';
+import {Buffer} from 'buffer';
 
 function Editor({ socketRef, roomId , onCodeChange}) {
 
   let editorRef = useRef(null);
   let [input, setInput] = useState(null);
   let lang = 'C++';
-  let source_code = '';
+  let [source, setSource] = useState('');
+  let [output, setOutput] = useState('Output');
 
   useEffect(() => {
     async function init() {
@@ -35,7 +37,7 @@ function Editor({ socketRef, roomId , onCodeChange}) {
 
         const origin = changes[0].origin;
         const code = instance.getValue();
-        source_code = code;
+        setSource(code);
         //console.log(source_code);
         //console.log(code);
 
@@ -120,7 +122,7 @@ async function RunCode(){
    //console.log(source_code);
    const data = {
      lang,
-     source_code,
+     source,
      input
    }
    const response = await axios({
@@ -128,6 +130,11 @@ async function RunCode(){
      url: '/compile',
      data: JSON.parse(JSON.stringify(data, replacerFunc() ))
    });
+
+   //console.log(response);
+   const outputConsole = document.getElementById('output');
+   setOutput(Buffer.from(response.data.stdout, 'base64').toString());
+   //console.log(outputConsole.value);
  }
   
 
@@ -159,7 +166,7 @@ async function RunCode(){
               roomId
             })
             }}></textarea>
-          <div className={ioClass} id='output' onChange={(e) => {outputRef = e.target.value}}><p className='text-xl text-zinc-400'>Output</p></div>
+          <div className={ioClass}><p className='text-xl text-zinc-400' id='output'>{output}</p></div>
         </div>
       </div>
     </div>
