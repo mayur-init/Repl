@@ -14,7 +14,7 @@ function Editor({ socketRef, roomId , onCodeChange}) {
 
   let editorRef = useRef(null);
   let [input, setInput] = useState(null);
-  let lang = 'C++';
+  let [lang, setLang] = useState('C++');
   let [source, setSource] = useState('');
   let [output, setOutput] = useState('Output');
 
@@ -132,8 +132,18 @@ async function RunCode(){
    });
 
    //console.log(response);
-   const outputConsole = document.getElementById('output');
-   setOutput(Buffer.from(response.data.stdout, 'base64').toString());
+   if(response.data.compile_output){
+     const outputRef ={
+      stdout: Buffer.from(response.data.compile_output, 'base64').toString(),
+     }
+     setOutput(outputRef);
+   }else{
+    const outputRef = {
+      stdout: Buffer.from(response.data.stdout, 'base64').toString(),
+      execution_time: `${response.data.time} ms`, 
+    }
+    setOutput(outputRef);
+   }
    //console.log(outputConsole.value);
  }
   
@@ -144,7 +154,7 @@ async function RunCode(){
         <h1 className='text-2xl text-zinc-400 m-4'>Code Playground</h1>
         <div className='self-center flex flex-row'>
           <Dropdown options={['C++', 'Java', 'Python']} onOptionSelect={(option) =>{
-            lang = option;
+            setLang(option);
              socketRef.current.emit('lang_change',{
                lang: option,
                roomId
@@ -166,7 +176,11 @@ async function RunCode(){
               roomId
             })
             }}></textarea>
-          <div className={ioClass}><p className='text-xl text-zinc-400' id='output'>{output}</p></div>
+          <div className={ioClass}>
+            <pre className='overflow-auto'>{output.stdout}</pre>
+            <br />
+            {output.execution_time}
+            </div>
         </div>
       </div>
     </div>
