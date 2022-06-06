@@ -32,7 +32,7 @@ const codeRunController = {
             //console.log('token:', token);
             return (token);
         } catch (err) {
-            console.log(err);
+            console.log(err.response.data.message);
         }
     },
 
@@ -64,7 +64,7 @@ const codeRunController = {
             return result;
 
         } catch (err) {
-            console.log(err);
+            //console.log(err);
         }
     },
 
