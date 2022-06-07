@@ -15,6 +15,10 @@ function Room() {
   const reactNavigator = useNavigate();
   const [clients, setClients] = useState([]);
 
+  const lang = 'C++';
+  const input = null;
+  const output = 'Ouptut';
+
   useEffect(() => {
     async function init() {
 
