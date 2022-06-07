@@ -118,6 +118,7 @@ function Editor({ socketRef, roomId , onCodeChange}) {
   };
 
 async function RunCode(){
+  setInput(input);
    //make a axios call to the server
    //console.log(source_code);
    const data = {
@@ -131,19 +132,41 @@ async function RunCode(){
      data: JSON.parse(JSON.stringify(data, replacerFunc() ))
    });
 
-   //console.log(response);
-   if(response.data.compile_output){
-     const outputRef ={
-      stdout: Buffer.from(response.data.compile_output, 'base64').toString(),
+   console.log(response);
+   if(lang === 'Python' || lang === 'Javascript'){
+     if(response.data.stderr !== null){
+       const outputRef ={
+         stdout: Buffer.from(response.data.stderr, 'base64').toString(),
+       }
+       setOutput(outputRef);
+     }
+     else{
+      const outputRef = {
+        lang: response.data.language.name,
+        stdout: Buffer.from(response.data.stdout, 'base64').toString(),
+        execution_time: `${response.data.time} ms`, 
+        memory: `${response.data.memory} kb`,
+      }
+      setOutput(outputRef);
+     }
+   }
+   else{
+    if(response.data.compile_output){
+      const outputRef ={
+       stdout: Buffer.from(response.data.compile_output, 'base64').toString(),
+      }
+      setOutput(outputRef);
+    }else{
+     const outputRef = {
+       lang: response.data.language.name,
+       stdout: Buffer.from(response.data.stdout, 'base64').toString(),
+       execution_time: `${response.data.time} ms`, 
+       memory: `${response.data.memory} kb`,
      }
      setOutput(outputRef);
-   }else{
-    const outputRef = {
-      stdout: Buffer.from(response.data.stdout, 'base64').toString(),
-      execution_time: `${response.data.time} ms`, 
     }
-    setOutput(outputRef);
    }
+   
    //console.log(outputConsole.value);
  }
   
@@ -153,7 +176,7 @@ async function RunCode(){
       <div className='flex flex-row justify-between'>
         <h1 className='text-2xl text-zinc-400 m-4'>Code Playground</h1>
         <div className='self-center flex flex-row'>
-          <Dropdown options={['C++', 'Java', 'Python']} onOptionSelect={(option) =>{
+          <Dropdown options={['C','C++','Python']} onOptionSelect={(option) =>{
             setLang(option);
              socketRef.current.emit('lang_change',{
                lang: option,
@@ -177,7 +200,7 @@ async function RunCode(){
             })
             }}></textarea>
           <div className={ioClass}>
-            <pre className='overflow-auto'>{output.stdout}</pre>
+            <pre className='overflow-x-auto overflow-y-auto'>{output.stdout}</pre>
             <br />
             {output.execution_time}
             </div>

@@ -1,17 +1,32 @@
 const axios = require('axios');
 const config = require('./config');
-
+const fs = require('fs');
 const API_KEY = config.API_KEY;
 const BASE_URL = config.BASE_URL1;
 
 const codeRunController = {
 
     async make_submission(lang_id, source_code, input) {
+
+        if(input !== null){
+            input = Buffer.from(input).toString('base64');
+        }
+
         let data = {
             "language_id": lang_id,
             "source_code": Buffer.from(source_code).toString('base64'),
             "stdin": input,
         }
+        /*if(lang_id === 62){
+            await fs.appendFile('./server/Java_files/Test.java', source_code, (err) =>{
+                console.log(err);
+            })
+            data = {
+                "language_id": lang_id,
+                "source_file": require('./Java_files/Test.java'),
+                "stdin": input,
+            }
+        }*/
 
         const options = {
             method: 'POST',
