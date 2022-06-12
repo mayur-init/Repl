@@ -10,14 +10,16 @@ function Room() {
 
   const socketRef = useRef(null);
   let codeRef = useRef(null);
+  let langRef = useRef('C++');
+  let inputRef = useRef(null);
+  let outputRef = useRef(null);
+
   const location = useLocation();
   const { roomId } = useParams();
   const reactNavigator = useNavigate();
   const [clients, setClients] = useState([]);
 
-  let langRef = 'C++';
-  let inputRef = null;
-  let outputRef = null;
+  
 
 
   useEffect(() => {
@@ -52,12 +54,11 @@ function Room() {
         //console.log(clients);
         //console.log(socketId);
         //syncing code
-        //console.log(langRef, outputRef);
         socketRef.current.emit(ACTIONS.SYNC_CODE,{
           code: codeRef.current,
-          lang: langRef,
-          input: inputRef,
-          output: outputRef,
+          lang: langRef.current,
+          input: inputRef.current,
+          output: outputRef.current,
           socketId,
         });
       })
@@ -89,9 +90,10 @@ function Room() {
         <div className='w-11/12'><Editor socketRef={socketRef} roomId={roomId} onCodeChange={(code) => {
           codeRef.current = code;}} 
           onCodeRun={(lang, input, output) =>{
-            langRef = lang;
-            inputRef = input;
-            outputRef = output;
+            langRef.current = lang;
+            inputRef.current = input;
+            outputRef.current = output;
+           // console.log(langRef, outputRef)
           }}/></div>
       </div>
 

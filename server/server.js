@@ -61,8 +61,8 @@ io.on('connection', (socket) =>{
         //emiting code to all the clients in the room
         //console.log(code);
         //console.log(socketId);
-        console.log(lang, output);
-        io.to(socketId).emit(ACTIONS.SYNC_CODE, {code, lang, inputRef: input, outputRef: output});
+        //console.log(lang, output);
+        io.to(socketId).emit(ACTIONS.SYNC_CODE, {code, lang, input, output});
     });
 
     //listening for language change

@@ -79,20 +79,19 @@ function Editor({ socketRef, roomId , onCodeChange, onCodeRun}) {
       }) 
 
       //listening for sync-code
-      socketRef.current.on(ACTIONS.SYNC_CODE, ({code, lang, inputRef, outputRef}) =>{
+      socketRef.current.on(ACTIONS.SYNC_CODE, ({code, lang, input, output}) =>{
         if(code != null){
           editorRef.current.setValue(code);
         }
-        output = outputRef;
        // console.log(langRef.current, output);
 
         langRef.current = lang;
         if(input !== null){
-          setInput(inputRef);
+          setInput(input);
         }
-       //if(output !== null || output !== undefined){
-         //setOutput(outputRef);
-        //}
+       if(output !== null){
+         setOutput(output);
+        }
       })
 
       //listening to input_change
@@ -148,7 +147,7 @@ async function RunCode(){
    });
 
    //console.log(response);
-   if(langRef.current === 'Python' || lang === 'Javascript'){
+   if(langRef.current === 'Python' || langRef.current === 'Javascript'){
      if(response.data.stderr !== null){
        const outputRef ={
          stdout: Buffer.from(response.data.stderr, 'base64').toString(),
@@ -187,7 +186,7 @@ async function RunCode(){
    }
    //console.log(langRef.current, output);
    socketRef.current.emit('code_run',{roomId, output})
-   onCodeRun(langRef, input, output);
+   onCodeRun(langRef.current, input, output);
  }
   
 
@@ -203,7 +202,7 @@ async function RunCode(){
                lang: option,
                roomId
              });
-            }} socketRef={socketRef}/>
+            }} socketRef={socketRef} langRef={langRef.current}/>
           <button className='btn btn-primary mx-4' onClick={RunCode}>Run</button>
         </div>
       </div>
@@ -214,7 +213,7 @@ async function RunCode(){
         </div>
         <div className='flex flex-col w-1/3'>
           <textarea className={ioClass} id='input' spellCheck='false' placeholder='Input' onChange={(e) => {
-            input = e.target.value;
+            setInput(e.target.value)
             socketRef.current.emit('input_change',{
               input,
               roomId
