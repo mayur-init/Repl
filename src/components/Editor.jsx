@@ -10,11 +10,11 @@ import Dropdown from './Dropdown';
 import axios from 'axios';
 import {Buffer} from 'buffer';
 
-function Editor({ socketRef, roomId , onCodeChange}) {
+function Editor({ socketRef, roomId , onCodeChange, onCodeRun}) {
 
   let editorRef = useRef(null);
+  let langRef = useRef('C++');
   let [input, setInput] = useState(null);
-  let [lang, setLang] = useState('C++');
   let [source, setSource] = useState('');
   let [output, setOutput] = useState('Output');
 
@@ -79,10 +79,20 @@ function Editor({ socketRef, roomId , onCodeChange}) {
       }) 
 
       //listening for sync-code
-      socketRef.current.on(ACTIONS.SYNC_CODE, ({code}) =>{
+      socketRef.current.on(ACTIONS.SYNC_CODE, ({code, lang, inputRef, outputRef}) =>{
         if(code != null){
           editorRef.current.setValue(code);
         }
+        output = outputRef;
+       // console.log(langRef.current, output);
+
+        langRef.current = lang;
+        if(input !== null){
+          setInput(inputRef);
+        }
+       //if(output !== null || output !== undefined){
+         //setOutput(outputRef);
+        //}
       })
 
       //listening to input_change
@@ -92,13 +102,19 @@ function Editor({ socketRef, roomId , onCodeChange}) {
         const inputConsole = document.getElementById('input');
         inputConsole.value = input;
       })
+
+      //listening for output_change
+      socketRef.current.on('code_run', ({output}) =>{
+        setOutput(output);
+      })
     }
 
     //cleaning function
     return () =>{
       socketRef.current.off(ACTIONS.CODE_CHANGE);
       socketRef.current.off(ACTIONS.SYNC_CODE);
-      socketRef.current.off('input_change')
+      socketRef.current.off('input_change');
+      socketRef.current.off('code_run');
     }
   }, [socketRef.current]);
 
@@ -118,11 +134,10 @@ function Editor({ socketRef, roomId , onCodeChange}) {
   };
 
 async function RunCode(){
-  setInput(input);
    //make a axios call to the server
    //console.log(source_code);
    const data = {
-     lang,
+     lang: langRef.current,
      source,
      input
    }
@@ -132,12 +147,13 @@ async function RunCode(){
      data: JSON.parse(JSON.stringify(data, replacerFunc() ))
    });
 
-   console.log(response);
-   if(lang === 'Python' || lang === 'Javascript'){
+   //console.log(response);
+   if(langRef.current === 'Python' || lang === 'Javascript'){
      if(response.data.stderr !== null){
        const outputRef ={
          stdout: Buffer.from(response.data.stderr, 'base64').toString(),
        }
+       output = outputRef;
        setOutput(outputRef);
      }
      else{
@@ -147,7 +163,8 @@ async function RunCode(){
         execution_time: `${response.data.time} ms`, 
         memory: `${response.data.memory} kb`,
       }
-      setOutput(outputRef);
+      output = outputRef;
+      setOutput(outputRef)
      }
    }
    else{
@@ -155,6 +172,7 @@ async function RunCode(){
       const outputRef ={
        stdout: Buffer.from(response.data.compile_output, 'base64').toString(),
       }
+      output = outputRef;
       setOutput(outputRef);
     }else{
      const outputRef = {
@@ -163,11 +181,13 @@ async function RunCode(){
        execution_time: `${response.data.time} ms`, 
        memory: `${response.data.memory} kb`,
      }
+     output = outputRef;
      setOutput(outputRef);
     }
    }
-   
-   //console.log(outputConsole.value);
+   //console.log(langRef.current, output);
+   socketRef.current.emit('code_run',{roomId, output})
+   onCodeRun(langRef, input, output);
  }
   
 
@@ -177,7 +197,8 @@ async function RunCode(){
         <h1 className='text-2xl text-zinc-400 m-4'>Code Playground</h1>
         <div className='self-center flex flex-row'>
           <Dropdown options={['C','C++','Python']} onOptionSelect={(option) =>{
-            setLang(option);
+            langRef.current = option;
+            //console.log(langRef.current);
              socketRef.current.emit('lang_change',{
                lang: option,
                roomId

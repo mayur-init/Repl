@@ -15,9 +15,10 @@ function Room() {
   const reactNavigator = useNavigate();
   const [clients, setClients] = useState([]);
 
-  const lang = 'C++';
-  const input = null;
-  const output = 'Ouptut';
+  let langRef = 'C++';
+  let inputRef = null;
+  let outputRef = null;
+
 
   useEffect(() => {
     async function init() {
@@ -51,11 +52,14 @@ function Room() {
         //console.log(clients);
         //console.log(socketId);
         //syncing code
+        //console.log(langRef, outputRef);
         socketRef.current.emit(ACTIONS.SYNC_CODE,{
           code: codeRef.current,
+          lang: langRef,
+          input: inputRef,
+          output: outputRef,
           socketId,
         });
-        
       })
 
       //listening for disconnected event
@@ -82,7 +86,13 @@ function Room() {
     <div>
       <div className='flex flex-row'>
         <div className='w-1/12 h-screen bg-zinc-900 p-4 min-w-max'><SideBar clients={clients} roomId={roomId}/></div>
-        <div className='w-11/12'><Editor socketRef={socketRef} roomId={roomId} onCodeChange={(code) => codeRef.current = code}/></div>
+        <div className='w-11/12'><Editor socketRef={socketRef} roomId={roomId} onCodeChange={(code) => {
+          codeRef.current = code;}} 
+          onCodeRun={(lang, input, output) =>{
+            langRef = lang;
+            inputRef = input;
+            outputRef = output;
+          }}/></div>
       </div>
 
     </div>

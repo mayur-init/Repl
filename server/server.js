@@ -57,12 +57,12 @@ io.on('connection', (socket) =>{
     });
 
     //listening for sync-code
-    socket.on(ACTIONS.SYNC_CODE, ({code, socketId}) =>{
+    socket.on(ACTIONS.SYNC_CODE, ({code,lang, input, output,  socketId}) =>{
         //emiting code to all the clients in the room
         //console.log(code);
         //console.log(socketId);
-        
-        io.to(socketId).emit(ACTIONS.SYNC_CODE, {code});
+        console.log(lang, output);
+        io.to(socketId).emit(ACTIONS.SYNC_CODE, {code, lang, inputRef: input, outputRef: output});
     });
 
     //listening for language change
@@ -75,6 +75,11 @@ io.on('connection', (socket) =>{
     socket.on('input_change', ({input, roomId}) =>{
         //console.log(inputRef);
         socket.in(roomId).emit('input_change', {input});
+    })
+
+    //listening for code_run
+    socket.on('code_run',({roomId, output}) =>{
+        socket.in(roomId).emit('code_run', {output});
     })
 
     //disconnecting client

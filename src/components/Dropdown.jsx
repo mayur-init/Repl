@@ -27,7 +27,7 @@ function Dropdown({ options, onOptionSelect, socketRef}) {
             })}>
             {options.map((option) => <div className={classNames('text-zinc-300 hover:bg-zinc-700 rounded-md p-2')} key={option} onClick={(e) => {onOptionSelect(option); setLanguage(option); setActive(!isActive)}}>{option}</div>)}
         </div>
-        </div >
+        </div>
     )
 }
 
