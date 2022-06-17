@@ -1,8 +1,24 @@
 const axios = require('axios');
 const config = require('./config');
 const fs = require('fs');
-const API_KEY = config.API_KEY;
+let API_KEY1 = config.API_KEY;
+const API_KEY2 = config.API_KEY2;
 const BASE_URL = config.BASE_URL;
+
+
+const API_KEY = API_KEY2;
+let remainingRunCount = 200; 
+
+const currentTime = new Date().toLocaleString('en-US', {timeZone: 'Asia/kolkata'}).split(',')[1];
+//console.log(currentTime);
+
+if(currentTime === '11:59:59 PM'){
+    remainingRunCount = 200;
+}
+
+if(remainingRunCount === 99){
+    API_KEY = API_KEY1;
+}
 
 const codeRunController = {
 
@@ -99,6 +115,9 @@ const codeRunController = {
             const token = await codeRunController.make_submission(lang_id, req.body.source, req.body.input);
             const response = await codeRunController.get_result(token);
             //console.log(response);
+            if(response){
+                remainingRunCount--;
+            }
             res.send(response);
         } catch (err) {
             console.log(err);
