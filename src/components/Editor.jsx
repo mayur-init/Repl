@@ -65,7 +65,7 @@ function Editor({ socketRef, roomId , onCodeChange, onCodeRun}) {
     return () =>{
       socketRef.current.off(ACTIONS.CODE_CHANGE);
     }
-  }, [input]);
+  }, []);
 
   useEffect(() => {
 
@@ -93,6 +93,8 @@ function Editor({ socketRef, roomId , onCodeChange, onCodeRun}) {
         if(inputRef != null){
           input = inputRef;
         }
+        const inputConsole = document.getElementById('input');
+        inputConsole.value = input;
        //if(output !== null || output !== undefined){
          //setOutput(outputRef);
         //}
