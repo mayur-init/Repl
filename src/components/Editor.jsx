@@ -80,7 +80,7 @@ function Editor({ socketRef, roomId , onCodeChange, onCodeRun}) {
 
       //listening for sync-code
       socketRef.current.on(ACTIONS.SYNC_CODE, ({code, lang, inputRef, outputRef}) =>{
-        console.log(lang, inputRef, outputRef);
+        //console.log(lang, inputRef, outputRef);
         if(code != null){
           editorRef.current.setValue(code);
         }
@@ -90,9 +90,7 @@ function Editor({ socketRef, roomId , onCodeChange, onCodeRun}) {
         if(lang != 'C++'){
           langRef.current = lang;
         }
-        if(inputRef != null){
-          input = inputRef;
-        }
+        setInput(inputRef);
         const inputConsole = document.getElementById('input');
         inputConsole.value = input;
        //if(output !== null || output !== undefined){
