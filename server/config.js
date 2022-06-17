@@ -3,6 +3,5 @@ dotenv.config();
 
 module.exports = {
     API_KEY,
-    BASE_URL1,
-    BASE_URL2,
+    BASE_URL,
 } = process.env;

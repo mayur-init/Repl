@@ -2,7 +2,7 @@ const axios = require('axios');
 const config = require('./config');
 const fs = require('fs');
 const API_KEY = config.API_KEY;
-const BASE_URL = config.BASE_URL1;
+const BASE_URL = config.BASE_URL;
 
 const codeRunController = {
 

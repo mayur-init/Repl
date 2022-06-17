@@ -65,7 +65,7 @@ function Editor({ socketRef, roomId , onCodeChange, onCodeRun}) {
     return () =>{
       socketRef.current.off(ACTIONS.CODE_CHANGE);
     }
-  }, []);
+  }, [input]);
 
   useEffect(() => {
 
@@ -79,19 +79,23 @@ function Editor({ socketRef, roomId , onCodeChange, onCodeRun}) {
       }) 
 
       //listening for sync-code
-      socketRef.current.on(ACTIONS.SYNC_CODE, ({code, lang, input, output}) =>{
+      socketRef.current.on(ACTIONS.SYNC_CODE, ({code, lang, inputRef, outputRef}) =>{
+        console.log(lang, inputRef, outputRef);
         if(code != null){
           editorRef.current.setValue(code);
         }
-       // console.log(langRef.current, output);
-
-        langRef.current = lang;
-        if(input !== null){
-          setInput(input);
+        if(outputRef != null){
+          setOutput(outputRef)
         }
-       if(output !== null){
-         setOutput(output);
+        if(lang != 'C++'){
+          langRef.current = lang;
         }
+        if(inputRef != null){
+          input = inputRef;
+        }
+       //if(output !== null || output !== undefined){
+         //setOutput(outputRef);
+        //}
       })
 
       //listening to input_change
@@ -115,7 +119,7 @@ function Editor({ socketRef, roomId , onCodeChange, onCodeRun}) {
       socketRef.current.off('input_change');
       socketRef.current.off('code_run');
     }
-  }, [socketRef.current]);
+  }, [input, socketRef.current]);
 
   const ioClass = 'text-xl text-zinc-400 bg-zinc-800 ml-2 mt-1 h-1/2 p-4 rounded-md border-2 border-zinc-500'
 
@@ -202,7 +206,7 @@ async function RunCode(){
                lang: option,
                roomId
              });
-            }} socketRef={socketRef} langRef={langRef.current}/>
+            }} socketRef={socketRef} lang={langRef.current}/>
           <button className='btn btn-primary mx-4' onClick={RunCode}>Run</button>
         </div>
       </div>
@@ -213,7 +217,7 @@ async function RunCode(){
         </div>
         <div className='flex flex-col w-1/3'>
           <textarea className={ioClass} id='input' spellCheck='false' placeholder='Input' onChange={(e) => {
-            setInput(e.target.value)
+            input = e.target.value;
             socketRef.current.emit('input_change',{
               input,
               roomId

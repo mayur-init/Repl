@@ -1,30 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import classNames from 'classnames';
 
-function Dropdown({ options, onOptionSelect, socketRef, langRef}) {
+function Dropdown({ options, onOptionSelect, socketRef, lang}) {
 
     const [isActive, setActive] = useState(false);
     const buttonClasses = 'text-xl text-zinc-400 hover:text-zinc-500 px-4';
     let [language, setLanguage] = useState('C++');
-
 
     useEffect(() =>{
         if(socketRef.current){
             socketRef.current.on('lang_change', ({lang}) =>{
                 setLanguage(lang);
             })
-        }   
+        }
+
         return () =>{
             socketRef.current.off('lang_change');
         }
     },[socketRef.current]);
 
     useEffect(() =>{
-        if(langRef != language){
-          setLanguage(langRef);
-        }
-    },[langRef]);
-
+        setLanguage(lang);
+    },[lang])
     return (
         <div>
             <button onClick={() => setActive(!isActive)} className={buttonClasses}>{language}</button>
