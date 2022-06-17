@@ -73,7 +73,7 @@ io.on('connection', (socket) =>{
 
     //listening to input change
     socket.on('input_change', ({input, roomId}) =>{
-        //console.log(inputRef);
+        //console.log(input);
         socket.in(roomId).emit('input_change', {input});
     })
 
