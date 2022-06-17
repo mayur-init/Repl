@@ -199,7 +199,7 @@ function Editor({ socketRef, roomId, onCodeChange, onCodeRun }) {
   return (
     <div className='bg-zinc-800 p-4 h-screen flex flex-col min-w-max'>
       <div className='flex flex-row justify-between'>
-        <h1 className='text-2xl text-zinc-400 m-4'>Code Playground</h1>
+        <h1 className='text-2xl text-zinc-400 m-4'>CodeSync</h1>
         <div className='self-center flex flex-row'>
           <Dropdown options={['C', 'C++', 'Python']} onOptionSelect={(option) => {
             langRef.current = option;
