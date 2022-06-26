@@ -52,7 +52,7 @@ function SideBar(props) {
                 <div>
                     <h1 className='text-2xl text-zinc-400 m-4'>Code<span>Sync</span></h1>
                     <hr className='border-zinc-800 bottom-2' />
-                    <h3 className='text-zinc-400 my-2'>Connected <span className='text-zinc-600 bg-transparent border-zinc-600 border-2 rounded-full m-1 px-2'>{clients.length}</span></h3>
+                    <h3 className='text-zinc-400 my-2'>Connected: <span className='text-zinc-400 m-1'>{clients.length}</span></h3>
                     <hr className='border-zinc-800 bottom-2' />
                     <div className='clientList'>
                         {

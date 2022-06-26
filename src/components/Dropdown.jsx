@@ -4,7 +4,7 @@ import classNames from 'classnames';
 function Dropdown({ options, onOptionSelect, socketRef, lang}) {
 
     const [isActive, setActive] = useState(false);
-    const buttonClasses = 'text-xl text-zinc-400 hover:text-zinc-500 px-4';
+    const buttonClasses = 'text-xl text-zinc-400 hover:text-zinc-500 px-6';
     let [language, setLanguage] = useState('C++');
 
     useEffect(() =>{
@@ -24,12 +24,12 @@ function Dropdown({ options, onOptionSelect, socketRef, lang}) {
     },[lang])
     return (
         <div>
-            <button onClick={() => setActive(!isActive)} className={buttonClasses}>{language}</button>
-            <div className={classNames("bg-zinc-600 p-2 m-8 origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg", {
+            <button onClick={() => setActive(!isActive)} className={`${buttonClasses} my-1`}>{`${language}`}</button>
+            <div className={classNames("bg-zinc-700 p-2 m-8 origin-top-right absolute right-0 mt-3 w-56 rounded-md shadow-lg z-10", {
                 block: isActive,
                 hidden: !isActive
             })}>
-            {options.map((option) => <div className={classNames('text-zinc-300 hover:bg-zinc-700 rounded-md p-2')} key={option} onClick={(e) => {onOptionSelect(option); setLanguage(option); setActive(!isActive)}}>{option}</div>)}
+            {options.map((option) => <div className={classNames('text-zinc-300 hover:bg-zinc-800 rounded-md p-2')} key={option} onClick={(e) => {onOptionSelect(option); setLanguage(option); setActive(!isActive)}}>{option}</div>)}
         </div>
         </div>
     )

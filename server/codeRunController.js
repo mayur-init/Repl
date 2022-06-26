@@ -50,9 +50,9 @@ const codeRunController = {
             params: { base64_encoded: 'true', fields: 'token' },
             headers: {
                 'content-type': 'application/json',
-                'Content-Type': 'application/json',
                 'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
                 'X-RapidAPI-Key': API_KEY,
+                accept:'application/json'
             },
             data: data
         };
@@ -103,6 +103,7 @@ const codeRunController = {
         const langs = new Map([
             ['C', 50],
             ['C++', 54],
+            ['Go', 60],
             ['Java', 62],
             ['Javascript', 63],
             ['Python', 71]

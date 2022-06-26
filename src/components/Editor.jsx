@@ -18,7 +18,7 @@ function Editor({ socketRef, roomId, onCodeChange, onCodeRun }) {
   let [source, setSource] = useState('');
   let [output, setOutput] = useState('Output');
   const [isActive, setIsActive] = useState(true);
-
+  let compiling = false;
   useEffect(() => {
     async function init() {
       editorRef.current = CodeMirror.fromTextArea(document.getElementById('editor'), {
@@ -123,7 +123,7 @@ function Editor({ socketRef, roomId, onCodeChange, onCodeRun }) {
     }
   }, [input, socketRef.current]);
 
-  const ioClass = 'text-xl text-zinc-400 bg-zinc-800 ml-2 mt-1 h-[84vh] p-4 rounded-md border-2 border-zinc-500'
+  const ioClass = 'text-xl text-zinc-400 bg-zinc-800 md:ml-2 mt-1 md:h-[85vh] h-[25vh] p-4 rounded-md border-2 border-zinc-500'
 
   const replacerFunc = () => {
     const visited = new WeakSet();
@@ -191,6 +191,7 @@ function Editor({ socketRef, roomId, onCodeChange, onCodeRun }) {
       }
     }
     //console.log(langRef.current, output);
+    compiling = false;
     socketRef.current.emit('code_run', { roomId, output })
     onCodeRun(langRef.current, input, output);
   }
@@ -199,9 +200,9 @@ function Editor({ socketRef, roomId, onCodeChange, onCodeRun }) {
   return (
     <div className='bg-zinc-800 p-4 h-screen flex flex-col min-w-max'>
       <div className='flex flex-row justify-between'>
-        <h1 className='text-2xl text-zinc-400 m-4'>CodeSync</h1>
+        <h1 className='text-2xl text-zinc-400 mt-2 mb-4 mx-4'>CodeSync</h1>
         <div className='self-center flex flex-row'>
-          <Dropdown options={['C', 'C++', 'Python']} onOptionSelect={(option) => {
+          <Dropdown options={['C', 'C++','Java','Golang', 'Python', 'Javascript']} onOptionSelect={(option) => {
             langRef.current = option;
             //console.log(langRef.current);
             socketRef.current.emit('lang_change', {
@@ -209,17 +210,19 @@ function Editor({ socketRef, roomId, onCodeChange, onCodeRun }) {
               roomId
             });
           }} socketRef={socketRef} lang={langRef.current} />
-          <button className='btn btn-primary mx-4' onClick={RunCode}>Run</button>
+          <button className='btn btn-primary mx-4' onClick={() =>{compiling = true; RunCode()}}>Run</button>
         </div>
       </div>
 
-      <div className='flex flex-row h-screen '>
-        <div className='h-full w-8/12'>
+      <div>
+      <div className='md:flex md:h-[90vh]'>
+        <div className='md:h-[90vh] h-[60vh] md:w-8/12 w-full'>
           <textarea id='editor' className='p-2 bg-zinc-800 text-zinc-200 text-xl border-2 border-zinc-500 w-full'></textarea>
         </div>
-        <div className='flex flex-col w-1/3'>
+
+        <div className='flex flex-col md:w-1/3 w-full'>
           <div>
-            <button className='btn btn-primary mx-2 my-1' onClick={() =>{setIsActive(true)}}>Input</button>
+            <button className='btn btn-primary md:ml-2 mr-1 mt-2' onClick={() =>{setIsActive(true)}}>Input</button>
             <button className='btn btn-primary' onClick={() =>{setIsActive(false)}}>Output</button>
           </div>
           {isActive?(<textarea className={ioClass} id='input' spellCheck='false' placeholder='Input' onChange={(e) => {
@@ -230,13 +233,15 @@ function Editor({ socketRef, roomId, onCodeChange, onCodeRun }) {
             })
             
             }}></textarea>):
-          (<div className={ioClass}>
-            <pre className='overflow-x-auto overflow-y-auto'>{output.stdout}</pre>
+           (<div className={ioClass}>
+            <pre className='overflow-x-auto overflow-y-auto'>{compiling?'Compiling...':output.stdout}</pre>
             <br />
             {output.execution_time}
           </div>)}
         </div>
       </div>
+      </div>
+
     </div>
 
   )
