@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import {Link} from 'react-router-dom';
 import CodeMirror from 'codemirror';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material-darker.css';
@@ -210,7 +211,8 @@ function Editor({ socketRef, roomId, onCodeChange, onCodeRun }) {
               roomId
             });
           }} socketRef={socketRef} lang={langRef.current} />
-          <button className='btn btn-primary mx-4' onClick={() =>{compiling = true; RunCode()}}>Run</button>
+          <Link to={`/room/${roomId}/whiteboard`}><button className='btn btn-primary mx-4'>Whiteboard</button></Link>
+          <button className='btn btn-primary mr-4' onClick={() =>{compiling = true; RunCode()}}>Run</button>
         </div>
       </div>
 

@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast'
 import Room from './pages/Room'
 import Roomlogin from './pages/Roomlogin'
 import Homepage from './pages/Homepage'
+import Whiteboard from './pages/Whiteboard'
 
 class App extends Component {
   render() {
@@ -27,6 +28,7 @@ class App extends Component {
           <Routes>
             <Route path='/' element={<Homepage/>} exact/>
             <Route path="/room/:roomId" element={<Room/>}/>
+            <Route path="/room/:roomId/whiteboard" element={<Whiteboard/>}/>
             <Route path="/room" element={<Roomlogin/>}/>
           </Routes>
         </Router>
