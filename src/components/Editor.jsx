@@ -20,6 +20,7 @@ function Editor({ socketRef, roomId, onCodeChange, onCodeRun }) {
   let [output, setOutput] = useState('Output');
   const [isActive, setIsActive] = useState(true);
   let compiling = false;
+  
   useEffect(() => {
     async function init() {
       editorRef.current = CodeMirror.fromTextArea(document.getElementById('editor'), {
@@ -236,7 +237,7 @@ function Editor({ socketRef, roomId, onCodeChange, onCodeRun }) {
             
             }}></textarea>):
            (<div className={ioClass}>
-            <pre className='overflow-x-auto overflow-y-auto'>{compiling?'Compiling...':output.stdout}</pre>
+            <pre className='overflow-auto'>{compiling?'Compiling...':output.stdout}</pre>
             <br />
             {output.execution_time}
           </div>)}

@@ -50,12 +50,10 @@ function SideBar({ socketRef, location, clients, roomId }) {
                 </div>
 
             </div>
-            {isActive ? (<div className='flex flex-col min-w-max h-full p-4 justify-between w-1/12'>
+            {isActive ? (<div className='flex flex-col bg-zinc-800 ml-[7.4vh] my-[12vh] w-[25vh] border-2 border-zinc-700 rounded-md h-[56vh] p-4 justify-between overflow-auto absolute z-10'>
                 <div>
-                    <h1 className='text-2xl text-zinc-400 m-4'>Code<span>Sync</span></h1>
-                    <hr className='border-zinc-800 bottom-2' />
                     <h3 className='text-zinc-400 my-2'>Connected: <span className='text-zinc-400 m-1'>{clients.length}</span></h3>
-                    <hr className='border-zinc-800 bottom-2' />
+                    <hr className='border-zinc-700 bottom-2' />
                     <div className='clientList'>
                         {
                             clientList.map((client) => (

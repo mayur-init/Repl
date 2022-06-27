@@ -82,6 +82,11 @@ io.on('connection', (socket) =>{
         socket.in(roomId).emit('code_run', {output});
     })
 
+    socket.on('sending_message', ({roomId, userName, message, time}) =>{
+        //console.log(`${userName}: ${message}, ${roomId}`);
+        io.to(roomId).emit('recieve_message', {userName, message, time});
+    })
+
     //disconnecting client
     socket.on('disconnecting', () =>{
         const rooms = [...socket.rooms];
