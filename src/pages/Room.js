@@ -85,7 +85,7 @@ function Room() {
   return (
     <div>
       <div className='flex flex-row'>
-        <div className=' bg-zinc-900 min-w-max'><SideBar clients={clients} roomId={roomId}/></div>
+        <div className=' bg-zinc-900 min-w-max'><SideBar socketRef={socketRef} location={location} clients={clients} roomId={roomId}/></div>
         <div className='w-full'><Editor socketRef={socketRef} roomId={roomId} onCodeChange={(code) => {
           codeRef.current = code;}} 
           onCodeRun={(lang, input, output) =>{
