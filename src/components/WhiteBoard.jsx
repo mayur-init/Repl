@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-function Whiteboard() {
+function WhiteBoard() {
   const { roomId } = useParams();
   return (
     <div className='overflow-hidden'>
@@ -13,4 +13,4 @@ function Whiteboard() {
   )
 }
 
-export default Whiteboard;
+export default WhiteBoard;

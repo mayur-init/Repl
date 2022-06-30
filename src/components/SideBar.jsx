@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast'
 import Client from '../components/Client';
 import MessageBox from './MessageBox';
+import { RoomContext } from '../Contexts/RoomContext';
+import {HiOutlinePencilAlt} from 'react-icons/hi';
 
-function SideBar({ socketRef, location, clients, roomId }) {
+function SideBar() {
 
+    const { clients, roomId, isEditor, setIsEditor } = useContext(RoomContext);
     const clientList = clients;
     const [isActive, setIsActive] = useState(false);
     const [messageBox, setMessageBox] = useState(false);
+
+
     //console.log(props);
     const reactNavigator = useNavigate();
 
@@ -38,6 +43,7 @@ function SideBar({ socketRef, location, clients, roomId }) {
                     <button onClick={() => { setIsActive(!isActive) }} className='text-zinc-400 py-2'><svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg></button>
+                    <button><HiOutlinePencilAlt size={38} className='text-zinc-400 my-2'></HiOutlinePencilAlt></button>
                 </div>
 
                 <div className='flex flex-col justify-end h-full'>
@@ -67,7 +73,7 @@ function SideBar({ socketRef, location, clients, roomId }) {
                 </div>
             </div>) : null}
 
-            {messageBox ? (<MessageBox socketRef={socketRef} location={location} roomId={roomId} />) : null}
+            {messageBox ? (<MessageBox />) : null}
         </div>
 
     )

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import {Link} from 'react-router-dom';
 import CodeMirror from 'codemirror';
 import 'codemirror/lib/codemirror.css';
@@ -10,11 +10,12 @@ import { ACTIONS } from '../Actions';
 import Dropdown from './Dropdown';
 import axios from 'axios';
 import { Buffer } from 'buffer';
+import { RoomContext } from '../Contexts/RoomContext';
 
-function Editor({ socketRef, roomId, onCodeChange, onCodeRun }) {
+function Editor() {
 
+  const {socketRef, roomId, codeRef, inputRef, outputRef, langRef} = useContext(RoomContext);
   let editorRef = useRef(null);
-  let langRef = useRef('C++');
   let [input, setInput] = useState(null);
   let [source, setSource] = useState('');
   let [output, setOutput] = useState('Output');
@@ -48,7 +49,8 @@ function Editor({ socketRef, roomId, onCodeChange, onCodeRun }) {
         //console.log('emiting code...');
         //console.log(origin);
         //passing props to parent component
-        onCodeChange(code);
+        //on code run
+        codeRef.current = code;
 
         if (origin !== 'setValue') {
           socketRef.current.emit(ACTIONS.CODE_CHANGE, {
@@ -195,7 +197,9 @@ function Editor({ socketRef, roomId, onCodeChange, onCodeRun }) {
     //console.log(langRef.current, output);
     compiling = false;
     socketRef.current.emit('code_run', { roomId, output })
-    onCodeRun(langRef.current, input, output);
+    //on code change
+    inputRef.current = input, 
+    outputRef.current = output;
   }
 
 

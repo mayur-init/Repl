@@ -5,7 +5,6 @@
   "proxy": "http://localhost:5000/",
   "dependencies": {
     "@headlessui/react": "^1.6.3",
-    "@heroicons/react": "^1.0.6",
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
     "buffer": "^6.0.3",
@@ -17,6 +16,7 @@
     "react-avatar": "^4.1.0",
     "react-dom": "^18.1.0",
     "react-hot-toast": "^2.2.0",
+    "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
     "react-scroll-to-bottom": "^4.2.0",

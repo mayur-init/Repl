@@ -83,7 +83,7 @@ io.on('connection', (socket) =>{
     })
 
     socket.on('sending_message', ({roomId, userName, message, time}) =>{
-        //console.log(`${userName}: ${message}, ${roomId}`);
+        //console.log(`${userName}: ${message}`);
         io.to(roomId).emit('recieve_message', {userName, message, time});
     })
 

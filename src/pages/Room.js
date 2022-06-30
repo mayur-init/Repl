@@ -5,6 +5,8 @@ import { initSocket } from '../socket'
 import { ACTIONS } from '../Actions';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast'
+import { RoomContext } from '../Contexts/RoomContext';
+import WhiteBoard from '../components/WhiteBoard';
 
 function Room() {
 
@@ -14,6 +16,8 @@ function Room() {
   const { roomId } = useParams();
   const reactNavigator = useNavigate();
   const [clients, setClients] = useState([]);
+  const [messageList, setMessageList] = useState([]);
+  const [isEditor, setIsEditor] = useState(true);
 
   let langRef = useRef('C++');
   let inputRef = useRef(null);
@@ -42,9 +46,9 @@ function Room() {
       //console.log(roomId);
 
       //listening for joined event
-      socketRef.current.on(ACTIONS.JOINED, ({clients, userName, socketId}) =>{
-        
-        if(userName !== location.state?.userName){
+      socketRef.current.on(ACTIONS.JOINED, ({ clients, userName, socketId }) => {
+
+        if (userName !== location.state?.userName) {
           toast.success(`${userName} joined the room`);
           //console.log(`${userName} joined`);
         }
@@ -53,7 +57,7 @@ function Room() {
         //console.log(socketId);
         //syncing code
         //console.log(langRef.current, outputRef.current);
-        socketRef.current.emit(ACTIONS.SYNC_CODE,{
+        socketRef.current.emit(ACTIONS.SYNC_CODE, {
           code: codeRef.current,
           lang: langRef.current,
           input: inputRef.current,
@@ -63,19 +67,19 @@ function Room() {
       })
 
       //listening for disconnected event
-      socketRef.current.on(ACTIONS.DISCONNECTED, ({socketId, userName}) =>{
+      socketRef.current.on(ACTIONS.DISCONNECTED, ({ socketId, userName }) => {
         toast.success(`${userName} left the room`);
-        setClients((prev) =>{
+        setClients((prev) => {
           return prev.filter((client) => client.socketId !== socketId);
         })
-  
+
       })
     }
 
     init();
 
     //cleaning function
-    return () =>{
+    return () => {
       socketRef.current.disconnect();
       socketRef.current.off(ACTIONS.JOINED);
       socketRef.current.off(ACTIONS.DISCONNECTED);
@@ -85,15 +89,12 @@ function Room() {
   return (
     <div>
       <div className='flex flex-row'>
-        <div className=' bg-zinc-900 min-w-max'><SideBar socketRef={socketRef} location={location} clients={clients} roomId={roomId}/></div>
-        <div className='w-full'><Editor socketRef={socketRef} roomId={roomId} onCodeChange={(code) => {
-          codeRef.current = code;}} 
-          onCodeRun={(lang, input, output) =>{
-            langRef.current = lang;
-            inputRef.current = input;
-            outputRef.current = output;
-           // console.log(langRef, outputRef);
-          }}/></div>
+      <RoomContext.Provider value={{socketRef, roomId, location, clients, codeRef, inputRef, outputRef, langRef, messageList, setMessageList, isEditor, setIsEditor}}>
+          <div className=' bg-zinc-900 min-w-max'><SideBar/></div>
+          <div className='w-full'>
+          {isEditor?(<Editor />):(<WhiteBoard/>)}
+          </div>
+          </RoomContext.Provider>
       </div>
 
     </div>
