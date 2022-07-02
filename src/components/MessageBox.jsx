@@ -54,13 +54,13 @@ function MessageBox() {
     }
 
     return (
-        <div className='flex flex-col justify-end pb-[9vh] h-full '>
+        <div className='flex flex-col justify-end pb-[9vh] h-[64vh] mt-[36vh]'>
             <div className=' grid place-content-end bg-zinc-800 border-zinc-700 border-2 shadow-xl h-[55vh] w-[30vh] rounded-md p-3 m-2 absolute z-10'>
-                <ScrollToBottom>
+                <ScrollToBottom className='h-[49vh] py-2'>
                     {messageList.map((messageContent, index) => {
                         let start = messageContent.userName === userName?'end':'start';
                         return (
-                            <div key={index}  className='w-full'>
+                            <div key={index}>
                                 <div className={`flex justify-${start} w-full`}>
                                     <div className='grid w-[90%] bg-zinc-700 my-2 p-2 rounded-md'>
                                         {messageContent.userName !== userName?<p className='text-green-500 pb-1 text-sm'>{messageContent.userName}</p>:null}

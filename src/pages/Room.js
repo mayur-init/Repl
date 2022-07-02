@@ -93,7 +93,7 @@ function Room() {
           <div className=' bg-zinc-900 min-w-max'><SideBar/></div>
           <div className='w-full'>
           <Editor />
-          {/*!isEditor?(<WhiteBoard/>):null*/}
+          {!isEditor?(<WhiteBoard/>):null}
           </div>
           </RoomContext.Provider>
       </div>

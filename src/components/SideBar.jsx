@@ -56,11 +56,11 @@ function SideBar() {
                 </div>
 
             </div>
-            {isActive ? (<div className='flex flex-col bg-zinc-800 ml-[7.4vh] my-[12vh] w-[25vh] border-2 border-zinc-700 rounded-md h-[56vh] p-4 justify-between overflow-auto absolute z-10'>
+            {isActive ? (<div className='flex flex-col bg-zinc-800 ml-[7.4vh] my-[12vh] w-[25vh] border-2 border-zinc-700 rounded-md h-[56vh] p-4 justify-between absolute z-10'>
                 <div>
                     <h3 className='text-zinc-400 my-2'>Connected: <span className='text-zinc-400 m-1'>{clients.length}</span></h3>
                     <hr className='border-zinc-700 bottom-2' />
-                    <div className='clientList'>
+                    <div className='clientList h-[47vh] overflow-y-scroll'>
                         {
                             clientList.map((client) => (
                                 <Client
