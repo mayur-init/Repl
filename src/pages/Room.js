@@ -92,7 +92,8 @@ function Room() {
       <RoomContext.Provider value={{socketRef, roomId, location, clients, codeRef, inputRef, outputRef, langRef, messageList, setMessageList, isEditor, setIsEditor}}>
           <div className=' bg-zinc-900 min-w-max'><SideBar/></div>
           <div className='w-full'>
-          {isEditor?(<Editor />):(<WhiteBoard/>)}
+          <Editor />
+          {/*!isEditor?(<WhiteBoard/>):null*/}
           </div>
           </RoomContext.Provider>
       </div>

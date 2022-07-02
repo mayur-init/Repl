@@ -84,7 +84,7 @@ io.on('connection', (socket) =>{
 
     socket.on('sending_message', ({roomId, userName, message, time}) =>{
         //console.log(`${userName}: ${message}`);
-        io.to(roomId).emit('recieve_message', {userName, message, time});
+        socket.in(roomId).emit('recieve_message', {userName, message, time});
     })
 
     //disconnecting client
