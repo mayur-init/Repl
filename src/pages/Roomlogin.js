@@ -50,11 +50,11 @@ function Roomlogin() {
 
         <input type='text' onChange={(e) =>{setUserName(e.target.value)}} value={userName} onKeyUp={handleInputEnter} placeholder='username' className='px-3 py-1 mb-6 bg-zinc-200 rounded-md'></input>
 
-        <button onClick={joinRoom} className='btn btn-primary self-end'>Join</button>
+        <button onClick={joinRoom} className='btn btn-primary self-end '>Join</button>
 
         <span className='text-zinc-500 py-1 text-sm self-end'>
           if you haven't an invite then create&nbsp;
-          <button onClick={createNewRoom} className='text-zinc-400 hover:text-zinc-500 pt-2'>new room</button>
+          <button onClick={createNewRoom} className='text-zinc-400 hover:text-zinc-500 pt-2 pl-1'>new room</button>
         </span>
       </div>
     </div>

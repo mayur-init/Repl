@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import classNames from 'classnames';
+import {HiOutlineChevronDown} from 'react-icons/hi';
 
 function Dropdown({ options, onOptionSelect, socketRef, lang}) {
 
@@ -24,7 +25,7 @@ function Dropdown({ options, onOptionSelect, socketRef, lang}) {
     },[lang])
     return (
         <div>
-            <button onClick={() => setActive(!isActive)} className={`${buttonClasses} my-1`}>{`${language}`}</button>
+            <button onClick={() => setActive(!isActive)} className={`${buttonClasses} m-1 flex`}>{`${language}`}<HiOutlineChevronDown size={20} className='my-1'/></button>
             <div className={classNames("bg-zinc-700 p-2 m-8 origin-top-right absolute right-0 mt-3 w-56 rounded-md shadow-lg z-10", {
                 block: isActive,
                 hidden: !isActive

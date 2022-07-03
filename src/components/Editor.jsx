@@ -11,6 +11,8 @@ import Dropdown from './Dropdown';
 import axios from 'axios';
 import { Buffer } from 'buffer';
 import { RoomContext } from '../Contexts/RoomContext';
+import {HiOutlineCode} from 'react-icons/hi';
+import {AiOutlineCaretRight} from 'react-icons/ai';
 
 function Editor() {
 
@@ -127,7 +129,7 @@ function Editor() {
     }
   }, [input, socketRef.current]);
 
-  const ioClass = 'text-xl text-zinc-400 bg-zinc-800 md:ml-2 mt-1 md:h-[85vh] h-[25vh] p-4 rounded-md border-2 border-zinc-500'
+  const ioClass = 'text-xl text-zinc-400 bg-zinc-800 md:ml-2 mt-1 md:h-[89vh] h-[27vh] p-2 rounded-md border-2 border-zinc-500'
 
   const replacerFunc = () => {
     const visited = new WeakSet();
@@ -204,9 +206,9 @@ function Editor() {
 
 
   return (
-    <div className='bg-zinc-800 p-4 h-screen flex flex-col min-w-max'>
+    <div className='bg-zinc-800 p-2 h-screen flex flex-col min-w-max'>
       <div className='flex flex-row justify-between'>
-        <h1 className='text-2xl text-zinc-400 mt-2 mb-4 mx-4'>CodeSync</h1>
+        <h1 className='flex text-2xl text-zinc-400 mt-2 mb-2 mx-4'>CodeSync<HiOutlineCode size={30} className='mx-2 my-1'/></h1>
         <div className='self-center flex flex-row'>
           <Dropdown options={['C', 'C++','Java','Golang', 'Python', 'Javascript']} onOptionSelect={(option) => {
             langRef.current = option;
@@ -216,15 +218,14 @@ function Editor() {
               roomId
             });
           }} socketRef={socketRef} lang={langRef.current} />
-          <Link to={`/room/${roomId}/whiteboard`}><button className='btn btn-primary mx-4'>Whiteboard</button></Link>
-          <button className='btn btn-primary mr-4' onClick={() =>{compiling = true; RunCode()}}>Run</button>
+          <button className='flex btn btn-primary mr-4 pl-4' onClick={() =>{compiling = true; RunCode()}}>Run<AiOutlineCaretRight size={20} className='my-1'/></button>
         </div>
       </div>
 
       <div>
-      <div className='md:flex md:h-[90vh]'>
-        <div className='md:h-[90vh] h-[60vh] md:w-8/12 w-full'>
-          <textarea id='editor' className='p-2 bg-zinc-800 text-zinc-200 text-xl border-2 border-zinc-500 w-full'></textarea>
+      <div className='md:flex md:h-[92vh]'>
+        <div className='md:h-[92vh] h-[60vh] md:w-8/12 w-full'>
+          <textarea id='editor' className='p-4 bg-zinc-800 text-zinc-200 text-xl border-2 border-zinc-500 w-full'></textarea>
         </div>
 
         <div className='flex flex-col md:w-1/3 w-full'>
