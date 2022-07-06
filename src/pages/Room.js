@@ -26,7 +26,7 @@ function Room() {
   let outputRef = useRef(null);
  
   //using dark theme;
-  const {colorTheme, setTheme} = useDarkMode();
+  const [colorTheme, setTheme] = useDarkMode();
   
   useEffect(() => {
     async function init() {
@@ -118,7 +118,7 @@ function Room() {
     <div>
       <div className='flex flex-row'>
       <RoomContext.Provider value={{socketRef, roomId, location, clients, codeRef, inputRef,
-       outputRef, langRef, messageList, setMessageList, isEditor, setIsEditor, colorTheme, setTheme
+       outputRef, langRef, messageList, setMessageList, isEditor, setIsEditor
       }}>
           <div className=' bg-zinc-900 min-w-max'><SideBar/></div>
           <div className='w-full'>

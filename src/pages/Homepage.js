@@ -1,15 +1,24 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import useDarkMode from '../hooks/useDarkMode';
+import DarkModeButton from '../components/DarkModeButton';
 
 function Homepage() {
+
+  //using dark theme;
+  const [colorTheme, setTheme] = useDarkMode();
+
   return (
-    <div className='bg-zinc-900 h-screen min-w-max'>
-      <div className='flex flex-row justify-between h-[10vh]'>
-        <h1 className='text-2xl text-zinc-300 p-4'>Code<span className='text-zinc-500'>Sync</span></h1>
-        <Link to='/room'><button className='btn btn-primary m-4'>Rooms</button></Link>
+    <div className='bg-white dark:bg-zinc-900 h-screen min-w-max p-6'>
+      <div className='flex flex-row justify-end h-[10vh]'>
+        <DarkModeButton/>
       </div>
-      <div className='grid place-content-center h-[90vh]'>
-        <p className='text-2xl text-zinc-600 justify-center px-4 mx-4'>Currently homepage is not avalible, It will be avalible soon.</p>
+
+      <div className='grid justify-center h-fit'>
+        <div className='mt-[24vh]'>
+          <p className='text-6xl text-zinc-300'>Code<span className='text-zinc-500'>Sync</span></p>
+          <Link to='/room' className='flex justify-center m-4'><button className='btn btn-primary'>Rooms</button></Link>
+        </div>
       </div>
     </div>
   )

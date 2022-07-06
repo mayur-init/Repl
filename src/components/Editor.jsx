@@ -13,6 +13,7 @@ import { Buffer } from 'buffer';
 import { RoomContext } from '../Contexts/RoomContext';
 import {HiOutlineCode} from 'react-icons/hi';
 import {AiOutlineCaretRight} from 'react-icons/ai';
+import DarkModeButton from './DarkModeButton';
 
 function Editor() {
 
@@ -210,6 +211,7 @@ function Editor() {
       <div className='flex flex-row justify-between'>
         <h1 className='flex text-2xl text-zinc-400 mt-2 mb-2 mx-4'>CodeSync<HiOutlineCode size={30} className='mx-2 my-1'/></h1>
         <div className='self-center flex flex-row'>
+          <DarkModeButton></DarkModeButton>
           <Dropdown options={['C', 'C++','Golang', 'Python', 'Javascript']} onOptionSelect={(option) => {
             langRef.current = option;
             //console.log(langRef.current);
