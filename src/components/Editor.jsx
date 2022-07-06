@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import CodeMirror from 'codemirror';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material-darker.css';
@@ -11,22 +11,25 @@ import Dropdown from './Dropdown';
 import axios from 'axios';
 import { Buffer } from 'buffer';
 import { RoomContext } from '../Contexts/RoomContext';
-import {HiOutlineCode} from 'react-icons/hi';
-import {AiOutlineCaretRight} from 'react-icons/ai';
+import { HiOutlineCode } from 'react-icons/hi';
+import { AiOutlineCaretRight } from 'react-icons/ai';
 import DarkModeButton from './DarkModeButton';
+import useDarkMode from '../hooks/useDarkMode';
 
 function Editor() {
 
-  const {socketRef, roomId, codeRef, inputRef, outputRef, langRef} = useContext(RoomContext);
+  const { socketRef, roomId, codeRef, inputRef, outputRef, langRef } = useContext(RoomContext);
   let editorRef = useRef(null);
   let [input, setInput] = useState(null);
   let [source, setSource] = useState('');
   let [output, setOutput] = useState('Output');
   const [isActive, setIsActive] = useState(true);
   let compiling = false;
-  
+
   useEffect(() => {
     async function init() {
+
+
       editorRef.current = CodeMirror.fromTextArea(document.getElementById('editor'), {
         mode: { name: 'javascript', json: true },
         theme: 'material-darker',
@@ -130,7 +133,7 @@ function Editor() {
     }
   }, [input, socketRef.current]);
 
-  const ioClass = 'text-xl text-zinc-400 bg-zinc-800 md:ml-2 mt-1 md:h-[89vh] h-[27vh] p-2 rounded-md border-2 border-zinc-500'
+  const ioClass = 'text-xl text-zinc-400 bg-white dark:bg-zinc-800 md:ml-2 mt-1 md:h-[91vh] h-[27vh] p-3 rounded-md shadow-xl'
 
   const replacerFunc = () => {
     const visited = new WeakSet();
@@ -201,18 +204,18 @@ function Editor() {
     compiling = false;
     socketRef.current.emit('code_run', { roomId, output })
     //on code change
-    inputRef.current = input, 
-    outputRef.current = output;
+    inputRef.current = input,
+      outputRef.current = output;
   }
 
 
   return (
-    <div className='bg-zinc-800 p-2 h-screen flex flex-col min-w-max'>
-      <div className='flex flex-row justify-between'>
-        <h1 className='flex text-2xl text-zinc-400 mt-2 mb-2 mx-4'>CodeSync<HiOutlineCode size={30} className='mx-2 my-1'/></h1>
+    <div className='bg-gray-200 dark:bg-zinc-700 px-2 pb-2 h-screen flex flex-col min-w-max'>
+      <div className='flex flex-row bg-white dark:bg-zinc-800 mb-2 rounded-md shadow-xl justify-between'>
+        <h1 className='flex text-2xl text-zinc-400 mt-2 mb-2 mx-4'>CodeSync<HiOutlineCode size={30} className='mx-2 my-1' /></h1>
         <div className='self-center flex flex-row'>
-          <DarkModeButton></DarkModeButton>
-          <Dropdown options={['C', 'C++','Golang', 'Python', 'Javascript']} onOptionSelect={(option) => {
+          <DarkModeButton />
+          <Dropdown options={['C', 'C++', 'Golang', 'Python', 'Javascript']} onOptionSelect={(option) => {
             langRef.current = option;
             //console.log(langRef.current);
             socketRef.current.emit('lang_change', {
@@ -220,36 +223,36 @@ function Editor() {
               roomId
             });
           }} socketRef={socketRef} lang={langRef.current} />
-          <button className='flex btn btn-primary mr-4 pl-4' onClick={() =>{compiling = true; RunCode()}}>Run<AiOutlineCaretRight size={20} className='my-1'/></button>
+          <button className='flex bg-green-500 hover:bg-green-600 btn btn-primary mr-4 text-zinc-700 dark:text-zinc-700 pl-4 pt-1' onClick={() => { compiling = true; RunCode() }}>Run<AiOutlineCaretRight size={15} className='my-1'/></button>
         </div>
       </div>
 
       <div>
-      <div className='md:flex md:h-[92vh]'>
-        <div className='md:h-[92vh] h-[60vh] md:w-8/12 w-full'>
-          <textarea id='editor' className='p-4 bg-zinc-800 text-zinc-200 text-xl border-2 border-zinc-500 w-full'></textarea>
-        </div>
-
-        <div className='flex flex-col md:w-1/3 w-full'>
-          <div>
-            <button className='btn btn-primary md:ml-2 mr-1 mt-2' onClick={() =>{setIsActive(true)}}>Input</button>
-            <button className='btn btn-primary' onClick={() =>{setIsActive(false)}}>Output</button>
+        <div className='md:flex md:h-[92vh]'>
+          <div className='md:h-[92vh] h-[60vh] md:w-8/12 w-full shadow-xl'>
+            <textarea id='editor' className='p-4 bg-zinc-800 text-zinc-200 text-xl border-2 border-zinc-500 w-full'></textarea>
           </div>
-          {isActive?(<textarea className={ioClass} id='input' spellCheck='false' placeholder='Input' onChange={(e) => {
-            input = e.target.value;
-            socketRef.current.emit('input_change',{
-              input,
-              roomId
-            })
-            
-            }}></textarea>):
-           (<div className={ioClass}>
-            <pre className='overflow-auto'>{compiling?'Compiling...':output.stdout}</pre>
-            <br />
-            {output.execution_time}
-          </div>)}
+
+          <div className='flex flex-col md:w-1/3 w-full'>
+            <div>
+              <button className='btn btn-primary bg-sky-500 dark:bg-zinc-800 text-white md:ml-2 mr-1 mt-2' onClick={() => { setIsActive(true) }}>Input</button>
+              <button className='btn btn-primary bg-sky-500  dark:bg-zinc-800 text-white' onClick={() => { setIsActive(false) }}>Output</button>
+            </div>
+            {isActive ? (<textarea className={ioClass} id='input' spellCheck='false' placeholder='Input' onChange={(e) => {
+              input = e.target.value;
+              socketRef.current.emit('input_change', {
+                input,
+                roomId
+              })
+
+            }}></textarea>) :
+              (<div className={ioClass}>
+                <pre className='overflow-auto'>{compiling ? 'Compiling...' : output.stdout}</pre>
+                <br />
+                {output.execution_time}
+              </div>)}
+          </div>
         </div>
-      </div>
       </div>
 
     </div>

@@ -24,6 +24,7 @@ function Room() {
   let langRef = useRef('C++');
   let inputRef = useRef(null);
   let outputRef = useRef(null);
+  
  
   //using dark theme;
   const [colorTheme, setTheme] = useDarkMode();
@@ -88,7 +89,7 @@ function Room() {
       socketRef.current.off(ACTIONS.JOINED);
       socketRef.current.off(ACTIONS.DISCONNECTED);
     }
-  }, [outputRef]);
+  }, [outputRef, colorTheme]);
 
   //--------------------audio connection configuration---------------------------
   // useEffect(() =>{
@@ -118,9 +119,9 @@ function Room() {
     <div>
       <div className='flex flex-row'>
       <RoomContext.Provider value={{socketRef, roomId, location, clients, codeRef, inputRef,
-       outputRef, langRef, messageList, setMessageList, isEditor, setIsEditor
+       outputRef, langRef, messageList, setMessageList, isEditor, setIsEditor, colorTheme
       }}>
-          <div className=' bg-zinc-900 min-w-max'><SideBar/></div>
+          <div className='bg-gray-200 dark:bg-zinc-900 min-w-max'><SideBar/></div>
           <div className='w-full'>
           <Editor />
           {!isEditor?(<WhiteBoard/>):null}

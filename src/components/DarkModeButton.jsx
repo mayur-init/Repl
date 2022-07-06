@@ -3,12 +3,13 @@ import { HiOutlineSun, HiOutlineMoon } from 'react-icons/hi';
 import { RoomContext } from '../Contexts/RoomContext';
 import useDarkMode from '../hooks/useDarkMode';
 
-function DarkModeButton() {
+function DarkModeButton({setDarkMode}) {
 
 const [colorTheme, setTheme] = useDarkMode();
     return (
         <div>
-            <button onClick={() =>{setTheme(colorTheme)}} className='text-zinc-400 text-2xl my-1'>{colorTheme === 'dark'?(<HiOutlineSun/>):(<HiOutlineMoon/>)}</button>
+            <button onClick={() =>{setTheme(colorTheme)}} className='text-zinc-500 hover:text-zinc-700 hover:scale-110 text-2xl my-1'>
+                {colorTheme === 'dark'?(<HiOutlineSun/>):(<HiOutlineMoon/>)}</button>
         </div>
     )
 }

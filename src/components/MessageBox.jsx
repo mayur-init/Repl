@@ -55,14 +55,14 @@ function MessageBox() {
 
     return (
         <div className='flex flex-col justify-end pb-[9vh] h-[64vh] mt-[36vh]'>
-            <div className=' grid place-content-end bg-zinc-800 border-zinc-700 border-2 shadow-xl h-[55vh] w-[30vh] rounded-md p-3 m-2 absolute z-10'>
+            <div className=' grid place-content-end bg-white dark:bg-zinc-800 border-zinc-700 dark:border-2 shadow-2xl h-[55vh] w-[30vh] rounded-md p-3 m-2 absolute z-10'>
                 <ScrollToBottom className='h-[49vh] py-2'>
                     {messageList.map((messageContent, index) => {
                         let start = messageContent.userName === userName?'end':'start';
                         return (
                             <div key={index}>
                                 <div className={`flex justify-${start} w-full`}>
-                                    <div className='grid w-[90%] bg-zinc-700 my-2 p-2 rounded-md'>
+                                    <div className='grid w-[90%] bg-gray-500 dark:bg-zinc-700 my-2 p-2 rounded-md'>
                                         {messageContent.userName !== userName?<p className='text-green-500 pb-1 text-sm'>{messageContent.userName}</p>:null}
                                         <p className='self-center text-white text-md break-word'>{messageContent.message}</p>
                                         <p className='justify-self-end text-white text-sm'>{messageContent.time}</p>
@@ -72,7 +72,7 @@ function MessageBox() {
                         );
                     })}
                 </ScrollToBottom>
-                <input type='text' onChange={(e) => { setMessage(e.target.value) }} value={message} onKeyUp={handleInputEnter} placeholder='Hey...' className='px-3 py-1 bg-zinc-200 w-full rounded-md'></input>
+                <input type='text' onChange={(e) => { setMessage(e.target.value) }} value={message} onKeyUp={handleInputEnter} placeholder='Hey...' className='px-3 py-1 text-zinc-700 bg-zinc-200 w-full rounded-md'></input>
             </div>
         </div>
     )
