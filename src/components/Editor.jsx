@@ -133,7 +133,7 @@ function Editor() {
     }
   }, [input, socketRef.current]);
 
-  const ioClass = 'text-xl text-zinc-400 bg-white dark:bg-zinc-800 md:ml-2 mt-1 md:h-[91vh] h-[27vh] p-3 rounded-md shadow-xl'
+  const ioClass = 'text-xl text-zinc-400 bg-gray-100 dark:bg-zinc-800 md:ml-2 mt-1 md:h-[91vh] h-[27vh] p-3 rounded-md shadow-xl'
 
   const replacerFunc = () => {
     const visited = new WeakSet();
@@ -210,8 +210,8 @@ function Editor() {
 
 
   return (
-    <div className='bg-gray-200 dark:bg-zinc-700 px-2 pb-2 h-screen flex flex-col min-w-max'>
-      <div className='flex flex-row bg-white dark:bg-zinc-800 mb-2 rounded-md shadow-xl justify-between'>
+    <div className='bg-gray-300 dark:bg-zinc-700 px-2 pb-2 h-screen flex flex-col min-w-max'>
+      <div className='flex flex-row bg-gray-100 dark:bg-zinc-800 mb-2 rounded-md shadow-xl justify-between'>
         <h1 className='flex text-2xl text-zinc-400 mt-2 mb-2 mx-4'>CodeSync<HiOutlineCode size={30} className='mx-2 my-1' /></h1>
         <div className='self-center flex flex-row'>
           <DarkModeButton />
