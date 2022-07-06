@@ -210,7 +210,7 @@ function Editor() {
       <div className='flex flex-row justify-between'>
         <h1 className='flex text-2xl text-zinc-400 mt-2 mb-2 mx-4'>CodeSync<HiOutlineCode size={30} className='mx-2 my-1'/></h1>
         <div className='self-center flex flex-row'>
-          <Dropdown options={['C', 'C++','Java','Golang', 'Python', 'Javascript']} onOptionSelect={(option) => {
+          <Dropdown options={['C', 'C++','Golang', 'Python', 'Javascript']} onOptionSelect={(option) => {
             langRef.current = option;
             //console.log(langRef.current);
             socketRef.current.emit('lang_change', {

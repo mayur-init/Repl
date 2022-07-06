@@ -5,6 +5,7 @@ const { ACTIONS } = require('../src/Actions');
 const router = express.Router();
 const codeRunController = require('./codeRunController');
 const bodyParser = require('body-parser');
+// const Peer = require('peerjs');
 
 const PORT = process.env.PORT || 5000;
 
@@ -86,6 +87,14 @@ io.on('connection', (socket) =>{
         //console.log(`${userName}: ${message}`);
         socket.in(roomId).emit('recieve_message', {userName, message, time});
     })
+
+    // //listening for sending audio stream
+    // socket.on('sendingMediaStream', ({mediaStream, roomId, userName}) =>{
+    //     if(mediaStream){
+    //         console.log(userName, mediaStream);
+    //         socket.in(roomId).emit('recieveMediaStream', (mediaStream, userName));
+    //     }
+    // })
 
     //disconnecting client
     socket.on('disconnecting', () =>{

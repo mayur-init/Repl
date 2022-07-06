@@ -7,6 +7,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast'
 import { RoomContext } from '../Contexts/RoomContext';
 import WhiteBoard from '../components/WhiteBoard';
+import useDarkMode from '../hooks/useDarkMode';
 
 function Room() {
 
@@ -18,12 +19,15 @@ function Room() {
   const [clients, setClients] = useState([]);
   const [messageList, setMessageList] = useState([]);
   const [isEditor, setIsEditor] = useState(true);
+  const [isAudioEnabled, setAudioEnabled] = useState(false);
 
   let langRef = useRef('C++');
   let inputRef = useRef(null);
   let outputRef = useRef(null);
-
-
+ 
+  //using dark theme;
+  const {colorTheme, setTheme} = useDarkMode();
+  
   useEffect(() => {
     async function init() {
 
@@ -43,7 +47,7 @@ function Room() {
         userName: location.state?.userName,
       });
 
-      //console.log(roomId);
+      //console.log(location.state);
 
       //listening for joined event
       socketRef.current.on(ACTIONS.JOINED, ({ clients, userName, socketId }) => {
@@ -86,10 +90,36 @@ function Room() {
     }
   }, [outputRef]);
 
+  //--------------------audio connection configuration---------------------------
+  // useEffect(() =>{
+  //    //sending audio stream
+  //    var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+  //    if(isAudioEnabled){
+  //      getUserMedia({audio: true}, (mediaStream) =>{
+  //        socketRef.current.emit('sendingMediaStream', (mediaStream, roomId, location.state.userName));
+  //      })
+  //    }
+
+  //   //listening for audio streams
+  //   if(socketRefcurrent != null){
+  //     socketRef.current.on('recievingMediaStream', ({mediaStream, userName}) =>{
+  //       recievedMediaStream.current.srcObject = mediaStream;
+  //       recievedMediaStream.current.play();
+  //     }) 
+  //   }
+
+  //   return(() =>{
+  //     socketRef.current.off('recievedMediaStream');
+  //   })
+  // });
+  
+
   return (
     <div>
       <div className='flex flex-row'>
-      <RoomContext.Provider value={{socketRef, roomId, location, clients, codeRef, inputRef, outputRef, langRef, messageList, setMessageList, isEditor, setIsEditor}}>
+      <RoomContext.Provider value={{socketRef, roomId, location, clients, codeRef, inputRef,
+       outputRef, langRef, messageList, setMessageList, isEditor, setIsEditor, colorTheme, setTheme
+      }}>
           <div className=' bg-zinc-900 min-w-max'><SideBar/></div>
           <div className='w-full'>
           <Editor />

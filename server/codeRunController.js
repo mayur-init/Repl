@@ -33,16 +33,19 @@ const codeRunController = {
             "source_code": Buffer.from(source_code).toString('base64'),
             "stdin": input,
         }
-        /*if(lang_id === 62){
-            await fs.appendFile('./server/Java_files/Test.java', source_code, (err) =>{
-                console.log(err);
-            })
-            data = {
-                "language_id": lang_id,
-                "source_file": require('./Java_files/Test.java'),
-                "stdin": input,
-            }
-        }*/
+
+        // source_code = Buffer.from(source_code).toString('base64');
+
+        // if(lang_id === 62){
+        //     fs.appendFile('./server/Java_files/Test.java', source_code, (err) =>{
+        //         console.log(err);
+        //     })
+        //     data = {
+        //         "language_id": lang_id,
+        //         "source_code": require('./Java_files/Test.java'),
+        //         "stdin": input,
+        //     }
+        // }
 
         const options = {
             method: 'POST',
@@ -61,6 +64,7 @@ const codeRunController = {
             const response = await axios.request(options);
             const token = response.data.token
             //console.log('token:', token);
+            
             return (token);
         } catch (err) {
             console.log(err.response.data.message);
@@ -103,7 +107,7 @@ const codeRunController = {
         const langs = new Map([
             ['C', 50],
             ['C++', 54],
-            ['Go', 60],
+            ['Golang', 60],
             ['Java', 62],
             ['Javascript', 63],
             ['Python', 71]

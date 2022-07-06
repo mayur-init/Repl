@@ -4,11 +4,12 @@ import toast from 'react-hot-toast'
 import Client from '../components/Client';
 import MessageBox from './MessageBox';
 import { RoomContext } from '../Contexts/RoomContext';
-import {HiOutlinePencilAlt, HiOutlineAnnotation, HiOutlinePlusCircle, HiOutlineUserCircle, HiOutlineLogout, HiOutlineMicrophone} from 'react-icons/hi';
+import {HiOutlinePencilAlt, HiOutlineAnnotation, HiOutlinePlusCircle,
+     HiOutlineUserCircle, HiOutlineLogout, HiOutlineMicrophone} from 'react-icons/hi';
 
 function SideBar() {
 
-    const { clients, roomId, isEditor, setIsEditor } = useContext(RoomContext);
+    const { clients, roomId, isAudioEnabled, setAudioEnabled } = useContext(RoomContext);
     const clientList = clients;
     const [isActive, setIsActive] = useState(false);
     const [messageBox, setMessageBox] = useState(false);
@@ -39,11 +40,12 @@ function SideBar() {
                 <div className='flex flex-col h-full justify-end'>
                     <button onClick={copyRoomId}><HiOutlinePlusCircle size={36} className='text-zinc-400 my-2'/></button>
                     <button onClick={() => { setIsActive(!isActive) }}><HiOutlineUserCircle size={36} className='text-zinc-400 my-2'/></button>
-                    <button><HiOutlinePencilAlt size={36} className='text-zinc-400 my-2'/></button>
+                    {/* <button><HiOutlinePencilAlt size={36} className='text-zinc-400 my-2'/></button> */}
                 </div>
 
                 <div className='flex flex-col justify-end h-full'>
                     <button onClick={() => { setMessageBox(!messageBox) }}><HiOutlineAnnotation size={36} className='text-zinc-400 my-2'/></button>
+                    {/* <button onClick={() => { setAudioEnabled(!isAudioEnabled)}}><HiOutlineMicrophone size={36} className='text-zinc-400 my-2'/></button> */}
                     <button onClick={leaveRoom} className='self-end mb-4'><HiOutlineLogout size={36} className='text-zinc-400 my-2'/></button>
                 </div>
 
