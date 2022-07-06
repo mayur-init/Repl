@@ -16,7 +16,7 @@ function Homepage() {
 
       <div className='grid justify-center h-fit'>
         <div className='mt-[24vh]'>
-          <p className='text-6xl text-zinc-300'>Code<span className='text-zinc-500'>Sync</span></p>
+          <p className='text-6xl text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-1'>Code Sync</p>
           <Link to='/room' className='flex justify-center m-4'><button className='btn btn-primary'>Rooms</button></Link>
         </div>
       </div>
