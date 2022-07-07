@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Socket } from 'socket.io-client';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import { RoomContext } from '../Contexts/RoomContext';
+import {AiOutlineExpand} from 'react-icons/ai';
 
 function MessageBox() {
 
@@ -55,14 +56,14 @@ function MessageBox() {
 
     return (
         <div className='flex flex-col justify-end pb-[9vh] h-[64vh] mt-[36vh]'>
-            <div className=' grid place-content-end bg-gray-100 dark:bg-zinc-800 border-zinc-700 dark:border-2 shadow-2xl h-[55vh] w-[30vh] rounded-md p-3 m-2 absolute z-10'>
+            <div className=' grid place-content-end bg-gray-200 dark:bg-zinc-900 border-zinc-700 dark:border-2 shadow-2xl h-[56.8vh] w-[33vh] rounded-md p-3 m-3 absolute z-10'>
                 <ScrollToBottom className='h-[49vh] py-2'>
                     {messageList.map((messageContent, index) => {
                         let start = messageContent.userName === userName?'end':'start';
                         return (
                             <div key={index}>
                                 <div className={`flex justify-${start} w-full`}>
-                                    <div className='grid w-[90%] bg-gray-500 dark:bg-zinc-700 my-2 p-2 rounded-md'>
+                                    <div className='grid w-[90%] bg-gray-400 dark:bg-zinc-600 shadow-md my-2 p-2 rounded-md'>
                                         {messageContent.userName !== userName?<p className='text-green-500 pb-1 text-sm'>{messageContent.userName}</p>:null}
                                         <p className='self-center text-white text-md break-word'>{messageContent.message}</p>
                                         <p className='justify-self-end text-white text-sm'>{messageContent.time}</p>
@@ -72,7 +73,7 @@ function MessageBox() {
                         );
                     })}
                 </ScrollToBottom>
-                <input type='text' onChange={(e) => { setMessage(e.target.value) }} value={message} onKeyUp={handleInputEnter} placeholder='Hey...' className='px-3 py-1 text-zinc-700 bg-zinc-200 w-full rounded-md'></input>
+                <input type='text' onChange={(e) => { setMessage(e.target.value) }} value={message} onKeyUp={handleInputEnter} placeholder='Hey...' className='px-3 py-1 text-zinc-700 bg-zinc-300 w-full shadow-xl rounded-md'></input>
             </div>
         </div>
     )

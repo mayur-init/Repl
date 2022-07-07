@@ -235,8 +235,8 @@ function Editor() {
 
           <div className='flex flex-col md:w-1/3 w-full'>
             <div>
-              <button className='btn btn-primary bg-sky-500 dark:bg-zinc-800 text-white md:ml-2 mr-1 mt-2' onClick={() => { setIsActive(true) }}>Input</button>
-              <button className='btn btn-primary bg-sky-500  dark:bg-zinc-800 text-white' onClick={() => { setIsActive(false) }}>Output</button>
+              <button className='btn btn-primary bg-sky-500 hover:bg-sky-600  dark:bg-zinc-800 text-white md:ml-2 mr-1 mt-2' onClick={() => { setIsActive(true) }}>Input</button>
+              <button className='btn btn-primary bg-sky-500 hover:bg-sky-600 dark:bg-zinc-800 text-white' onClick={() => { setIsActive(false) }}>Output</button>
             </div>
             {isActive ? (<textarea className={ioClass} id='input' spellCheck='false' placeholder='Input' onChange={(e) => {
               input = e.target.value;

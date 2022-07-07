@@ -10,7 +10,7 @@
 @tailwind components;
 
 .btn{
- @apply dark:text-zinc-500 px-3 w-auto h-8 rounded-md dark:hover:text-zinc-700
+ @apply dark:text-zinc-400 px-3 w-auto h-8 rounded-md dark:hover:text-zinc-600
 }
 
 .btn-primary{
