@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import { HiOutlineSun, HiOutlineMoon } from 'react-icons/hi';
-import { RoomContext } from '../Contexts/RoomContext';
 import useDarkMode from '../hooks/useDarkMode';
 
-function DarkModeButton({setDarkMode}) {
+function DarkModeButton() {
 
 const [colorTheme, setTheme] = useDarkMode();
     return (

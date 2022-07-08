@@ -24,12 +24,15 @@ function Editor() {
   let [source, setSource] = useState('');
   let [output, setOutput] = useState('Output');
   const [isActive, setIsActive] = useState(true);
+
+  const [isDarkMode, setDarkMode] = useState(false);
+
+
   let compiling = false;
 
   useEffect(() => {
     async function init() {
-
-
+  
       editorRef.current = CodeMirror.fromTextArea(document.getElementById('editor'), {
         mode: { name: 'javascript', json: true },
         theme: 'material-darker',
@@ -116,6 +119,7 @@ function Editor() {
         //console.log(input);
         const inputConsole = document.getElementById('input');
         inputConsole.value = input;
+        setInput(input);
       })
 
       //listening for output_change
@@ -235,7 +239,7 @@ function Editor() {
 
           <div className='flex flex-col md:w-1/3 w-full'>
             <div>
-              <button className='btn btn-primary bg-sky-500 hover:bg-sky-600  dark:bg-zinc-800 text-white md:ml-2 mr-1 mt-2' onClick={() => { setIsActive(true) }}>Input</button>
+              <button className='btn btn-primary bg-sky-500 hover:bg-sky-600  dark:bg-zinc-800 text-white md:ml-2 mr-1 mt-2' onClick={() => { setIsActive(true)  }}>Input</button>
               <button className='btn btn-primary bg-sky-500 hover:bg-sky-600 dark:bg-zinc-800 text-white' onClick={() => { setIsActive(false) }}>Output</button>
             </div>
             {isActive ? (<textarea className={ioClass} id='input' spellCheck='false' placeholder='Input' onChange={(e) => {
@@ -244,7 +248,6 @@ function Editor() {
                 input,
                 roomId
               })
-
             }}></textarea>) :
               (<div className={ioClass}>
                 <pre className='overflow-auto'>{compiling ? 'Compiling...' : output.stdout}</pre>
