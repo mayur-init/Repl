@@ -1,15 +1,17 @@
 const express = require('express');
 const http = require('http');
 const {Server} = require('socket.io');
-const { ACTIONS } = require('../src/Actions');
+const { ACTIONS } = require('../frontend/src/Actions');
 const router = express.Router();
 const codeRunController = require('./codeRunController');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 // const Peer = require('peerjs');
 
 const PORT = process.env.PORT || 5000;
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(router);

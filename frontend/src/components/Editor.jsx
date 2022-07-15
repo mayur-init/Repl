@@ -162,7 +162,7 @@ function Editor() {
     }
     const response = await axios({
       method: 'post',
-      url: '/compile',
+      url: 'http://localhost:5000/compile',
       data: JSON.parse(JSON.stringify(data, replacerFunc()))
     });
 

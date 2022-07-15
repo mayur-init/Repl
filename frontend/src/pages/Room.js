@@ -36,7 +36,6 @@ function Room() {
       socketRef.current.on('connect_error', (err) => handleErrors(err));
       socketRef.current.on('connect_failed', (err) => handleErrors(err));
 
-      //console.log(roomId);
       const handleErrors = (err) => {
         console.log(`socket error ${err}`);
         toast.error('Socket connection failed, try again later.');

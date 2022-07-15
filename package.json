@@ -4,41 +4,25 @@
   "private": true,
   "proxy": "http://localhost:5000/",
   "dependencies": {
-    "@headlessui/react": "^1.6.3",
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
     "buffer": "^6.0.3",
-    "classnames": "^2.3.1",
-    "codemirror": "^5.65.4",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "peerjs": "^1.4.6",
-    "react": "^18.1.0",
-    "react-avatar": "^4.1.0",
-    "react-dom": "^18.1.0",
-    "react-hot-toast": "^2.2.0",
-    "react-icons": "^4.4.0",
-    "react-router-dom": "^6.3.0",
-    "react-scripts": "^5.0.1",
-    "react-scroll-to-bottom": "^4.2.0",
     "socket.io": "^4.5.1",
     "socket.io-client": "^4.5.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.7",
-    "nodemon": "^2.0.16",
-    "postcss": "^8.4.14",
-    "tailwindcss": "^3.0.24"
+    "nodemon": "^2.0.16"
   },
   "scripts": {
-    "server:dev": "nodemon ./server/server.js",
-    "server:build": "node ./server/server.js",
-    "client:dev": "react-scripts start",
-    "client:build": "react-scripts build",
+    "dev": "nodemon ./server/server.js",
+    "build": "node ./server/server.js",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "heroku-postbuild": "client:build && server:build"
+    "eject": "react-scripts eject"
   },
   "browserslist": {
     "production": [
