@@ -127,5 +127,4 @@ if(process.env.NODE_ENV === 'production'){
 }
 
 router.post('/compile', codeRunController.codeRun);
-
-server.listen(PORT, () => {console.log(`listening on port ${PORT}...`)});
+server.listen(PORT);
