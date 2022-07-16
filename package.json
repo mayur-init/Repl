@@ -2,7 +2,7 @@
   "name": "code-sync",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000/",
+  "node": "16.0.0",
   "dependencies": {
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
@@ -20,6 +20,7 @@
   },
   "scripts": {
     "start": "nodemon server/server.js",
+    "build": "node server/server.js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn --prefix frontend && yarn build --prefix frontend"
