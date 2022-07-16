@@ -6,6 +6,7 @@ const router = express.Router();
 const codeRunController = require('./codeRunController');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 // const Peer = require('peerjs');
 
 const PORT = process.env.PORT || 5000;
@@ -114,7 +115,17 @@ io.on('connection', (socket) =>{
 
 })
 
-router.get('/', (req, res) =>{res.send('<h2>Express server is running ...</h2>')});
+// -------------static assets for deployment ----------------------
+__dirname = path.resolve();
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(path.join(__dirname, '/frontend/build')));
+    app.get('*', (req, res) =>{
+        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+    });
+}else{
+ router.get('/', (req, res) =>{res.send('<h2>Express server is running ...</h2>')});
+}
+
 router.post('/compile', codeRunController.codeRun);
 
 server.listen(PORT, () => {console.log(`listening on port ${PORT}...`)});
