@@ -19,10 +19,11 @@
     "nodemon": "^2.0.16"
   },
   "scripts": {
-    "dev": "nodemon ./server/server.js",
-    "build": "node ./server/server.js",
+    "start": "nodemon server/server.js",
+    "build": "node server/server.js",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn add --prefix frontend && yarn build --prefix fontend"
   },
   "browserslist": {
     "production": [
