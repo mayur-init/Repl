@@ -4,16 +4,9 @@
 /node_modules
 /frontend/node_modules
 
-# testing
-/coverage
+/.env
 
 # production
-/build
 /frontend/build
-# misc
-/.env
-.DS_Store
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+
 
