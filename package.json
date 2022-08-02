@@ -20,7 +20,7 @@
     "dev": "nodemon server/server.js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm build --prefix frontend"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --legacy-peer-deps --prefix frontend && npm build --prefix frontend"
   },
   "browserslist": {
     "production": [
