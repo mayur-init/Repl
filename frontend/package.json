@@ -2,9 +2,6 @@
   "name": "code-sync",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "16.x"
-  },
   "dependencies": {
     "@headlessui/react": "^1.6.3",
     "axios": "^0.27.2",
