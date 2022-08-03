@@ -156,7 +156,8 @@ function Editor() {
     //make a axios call to the server
     //console.log(source_code
     
-    let url = process.env.REACT_APP_BACKEND_URL+'compile';
+    // let url = process.env.REACT_APP_BACKEND_URL+'compile';
+    let url = 'https://codesync-init.herokuapp.com/compile';
 
     const data = {
       lang: langRef.current,

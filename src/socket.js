@@ -1,6 +1,8 @@
 import { io } from 'socket.io-client';
 
-let url = process.env.REACT_APP_BACKEND_URL;
+// let url = process.env.REACT_APP_BACKEND_URL;
+let url = 'https://codesync-init.herokuapp.com/';
+
 
 export const initSocket = async () => {
     const options = {
