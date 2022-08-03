@@ -18,7 +18,7 @@ import useDarkMode from '../hooks/useDarkMode';
 
 function Editor() {
 
-  const { socketRef, roomId, codeRef, inputRef, outputRef, langRef , location} = useContext(RoomContext);
+  const { socketRef, roomId, codeRef, inputRef, outputRef, langRef, location } = useContext(RoomContext);
   let editorRef = useRef(null);
   let [input, setInput] = useState(null);
   let [source, setSource] = useState('');
@@ -154,11 +154,11 @@ function Editor() {
 
   async function RunCode() {
     //make a axios call to the server
-    //console.log(source_code)
-    let url = 'https://codesync-init.herokuapp.com/compile';
+    //console.log(source_code
+    let url = 'http://localhost:5000/compile';
 
-    if (process.env.NODE_ENV == 'devlopment') {
-      url = 'http://localhost:5000/compile';
+    if (process.env.REACT_APP_NODE_ENV == 'production') {
+      url = 'process.env.REACT_APP_BACKEND_URL'+'compile';
     }
 
     const data = {
