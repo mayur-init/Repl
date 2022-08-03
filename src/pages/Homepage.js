@@ -11,7 +11,7 @@ function Homepage() {
 
   return (
     <div className='bg-gray-200 dark:bg-zinc-900 h-screen py-6'>
-      <div className='flex flex-row justify-end h-[20vh] px-6'>
+      <div className='flex flex-row justify-end h-[15vh] px-6'>
         {/* <DarkModeButton /> */}
       </div>
       <div className='p-6 m-4'>

@@ -1,7 +1,7 @@
 const express = require('express');
 const http = require('http');
 const {Server} = require('socket.io');
-const { ACTIONS } = require('../frontend/src/Actions');
+const { ACTIONS } = require('../src/Actions');
 const router = express.Router();
 const codeRunController = require('./codeRunController');
 const bodyParser = require('body-parser');

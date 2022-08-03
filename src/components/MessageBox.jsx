@@ -64,7 +64,7 @@ function MessageBox() {
                             <div key={index}>
                                 <div className={`flex justify-${start} w-full`}>
                                     <div className='grid max-w-[26vh] overflow-auto mx-2 bg-gray-400 dark:bg-zinc-600 shadow-md my-2 p-2 rounded-md'>
-                                        {messageContent.userName !== userName?<p className='text-green-500 pb-1 text-sm'>{messageContent.userName}</p>:null}
+                                        {messageContent.userName !== userName?<p className='text-violet-400 pb-1 text-sm'>{messageContent.userName}</p>:null}
                                         <p className='self-center text-white text-md break-normal'>{messageContent.message}</p>
                                         <p className='justify-self-end text-white text-sm'>{messageContent.time}</p>
                                     </div>

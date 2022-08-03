@@ -6,7 +6,6 @@ import { ACTIONS } from '../Actions';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast'
 import { RoomContext } from '../Contexts/RoomContext';
-import WhiteBoard from '../components/WhiteBoard';
 import useDarkMode from '../hooks/useDarkMode';
 
 function Room() {
@@ -120,8 +119,10 @@ function Room() {
       <RoomContext.Provider value={{socketRef, roomId, location, clients, codeRef, inputRef,
        outputRef, langRef, messageList, setMessageList, isEditor, setIsEditor, colorTheme
       }}>
-          <div className='bg-gray-200 dark:bg-zinc-900 min-w-max'><SideBar/></div>
-          <div className='w-screen h-screen'>
+          <div className='bg-gray-200 dark:bg-zinc-900 min-w-max'>
+            <SideBar/>
+            </div>
+          <div className='w-full'>
           <Editor />
           {!isEditor?(<WhiteBoard/>):null}
           </div>

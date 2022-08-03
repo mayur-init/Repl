@@ -2,9 +2,9 @@ import { io } from 'socket.io-client';
 
 let url = 'https://codesync-init.herokuapp.com/';
 
-    if (process.env.NODE_ENV == 'devlopment') {
-      url = 'http://localhost:5000/';
-    } 
+if (process.env.NODE_ENV == 'devlopment') {
+    url = 'http://localhost:5000/';
+}
 
 export const initSocket = async () => {
     const options = {
