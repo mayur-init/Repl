@@ -56,7 +56,7 @@ function MessageBox() {
 
     return (
         <div className='flex flex-col justify-end pb-[9vh] h-[64vh] mt-[36vh]'>
-            <div className=' grid place-content-end bg-gray-200 dark:bg-zinc-900 border-zinc-700 dark:border-2 shadow-2xl h-[56.8vh] w-[33vh] rounded-md p-3 m-3 absolute z-10'>
+            <div className=' grid place-content-end bg-gray-200 dark:bg-zinc-900 border-zinc-700 dark:border-2 h-[56.8vh] w-[33vh] rounded-md p-3 m-3 absolute z-10'>
                 <ScrollToBottom className='h-[49vh] py-2'>
                     {messageList.map((messageContent, index) => {
                         let start = messageContent.userName === userName?'end':'start';

@@ -116,12 +116,12 @@ function Room() {
 
   return (
     <div>
-      <div className='flex flex-row'>
+      <div className='flex flex-row w-screen h-screen'>
       <RoomContext.Provider value={{socketRef, roomId, location, clients, codeRef, inputRef,
        outputRef, langRef, messageList, setMessageList, isEditor, setIsEditor, colorTheme
       }}>
           <div className='bg-gray-200 dark:bg-zinc-900 min-w-max'><SideBar/></div>
-          <div className='w-full'>
+          <div className='w-screen h-screen'>
           <Editor />
           {!isEditor?(<WhiteBoard/>):null}
           </div>

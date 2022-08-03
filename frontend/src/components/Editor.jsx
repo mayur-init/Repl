@@ -32,7 +32,7 @@ function Editor() {
 
   useEffect(() => {
     async function init() {
-  
+
       editorRef.current = CodeMirror.fromTextArea(document.getElementById('editor'), {
         mode: { name: 'javascript', json: true },
         theme: 'material-darker',
@@ -137,7 +137,7 @@ function Editor() {
     }
   }, [input, socketRef.current]);
 
-  const ioClass = 'text-xl text-zinc-400 bg-gray-100 dark:bg-zinc-800 md:ml-2 mt-1 md:h-[91vh] h-[27vh] p-3 rounded-md shadow-xl'
+  const ioClass = 'text-xl text-zinc-400 bg-gray-100 dark:bg-zinc-900 md:ml-2 mt-1 md:h-[91vh] h-[26vh] p-3 rounded-md'
 
   const replacerFunc = () => {
     const visited = new WeakSet();
@@ -154,7 +154,13 @@ function Editor() {
 
   async function RunCode() {
     //make a axios call to the server
-    //console.log(source_code);
+    //console.log(source_code)
+    let url = 'https://codesync-init.herokuapp.com/compile';
+
+    if (process.env.NODE_ENV == 'devlopment') {
+      url = 'http://localhost:5000/compile';
+    } 
+
     const data = {
       lang: langRef.current,
       source,
@@ -162,7 +168,7 @@ function Editor() {
     }
     const response = await axios({
       method: 'post',
-      url: 'http://localhost:5000/compile',
+      url: url,
       data: JSON.parse(JSON.stringify(data, replacerFunc()))
     });
 
@@ -214,11 +220,11 @@ function Editor() {
 
 
   return (
-    <div className='bg-gray-300 dark:bg-zinc-700 px-2 pb-2 h-screen flex flex-col min-w-max'>
+    <div className='bg-gray-300 dark:bg-zinc-700 px-2 pb-2 h-screen flex flex-col min-w-max min-h-max'>
       <div className='flex flex-row bg-gray-100 dark:bg-zinc-800 mb-2 rounded-md shadow-xl justify-between'>
         <h1 className='flex text-2xl text-zinc-400 mt-2 mb-2 mx-4'>CodeSync<HiOutlineCode size={30} className='mx-2 my-1' /></h1>
         <div className='self-center flex flex-row'>
-          <DarkModeButton />
+          {/* <DarkModeButton /> */}
           <Dropdown options={['C', 'C++', 'Golang', 'Python', 'Javascript']} onOptionSelect={(option) => {
             langRef.current = option;
             //console.log(langRef.current);
@@ -227,7 +233,7 @@ function Editor() {
               roomId
             });
           }} socketRef={socketRef} lang={langRef.current} />
-          <button className='flex bg-green-500 hover:bg-green-600 btn btn-primary mr-4 text-zinc-700 dark:text-zinc-700 pl-4 pt-1' onClick={() => { compiling = true; RunCode() }}>Run<AiOutlineCaretRight size={15} className='my-1'/></button>
+          <button className='flex bg-green-500 hover:bg-green-600 btn btn-primary mr-4 text-zinc-700 dark:text-zinc-700 pl-4 pt-1' onClick={() => { compiling = true; RunCode() }}>Run<AiOutlineCaretRight size={15} className='my-1' /></button>
         </div>
       </div>
 
@@ -239,7 +245,7 @@ function Editor() {
 
           <div className='flex flex-col md:w-1/3 w-full'>
             <div>
-              <button className='btn btn-primary bg-sky-500 hover:bg-sky-600  dark:bg-zinc-800 text-white md:ml-2 mr-1 mt-2' onClick={() => { setIsActive(true)  }}>Input</button>
+              <button className='btn btn-primary bg-sky-500 hover:bg-sky-600  dark:bg-zinc-800 text-white md:ml-2 mr-1 mt-2' onClick={() => { setIsActive(true) }}>Input</button>
               <button className='btn btn-primary bg-sky-500 hover:bg-sky-600 dark:bg-zinc-800 text-white' onClick={() => { setIsActive(false) }}>Output</button>
             </div>
             {isActive ? (<textarea className={ioClass} id='input' spellCheck='false' placeholder='Input' onChange={(e) => {

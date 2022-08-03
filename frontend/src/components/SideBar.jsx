@@ -50,7 +50,7 @@ function SideBar() {
                 </div>
 
             </div>
-            {isActive ? (<div className='flex flex-col bg-gray-100 dark:bg-zinc-900 ml-[7.4vh] my-[12vh] w-[25vh] dark:border-2 dark:border-zinc-700  shadow-2xl rounded-md h-[56vh] p-4 justify-between absolute z-10'>
+            {isActive ? (<div className='flex flex-col bg-gray-100 dark:bg-zinc-900 ml-[7.4vh] my-[12vh] w-[25vh] dark:border-2 dark:border-zinc-700 rounded-md h-[56vh] p-4 justify-between absolute z-10'>
                 <div>
                     <h3 className='text-zinc-400 my-2'>Connected: <span className='text-zinc-400 m-1'>{clients.length}</span></h3>
                     <hr className='border-zinc-200 dark:border-zinc-700 bottom-2' />
