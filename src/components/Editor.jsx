@@ -155,11 +155,8 @@ function Editor() {
   async function RunCode() {
     //make a axios call to the server
     //console.log(source_code
-    let url = 'http://localhost:5000/compile';
-
-    if (process.env.REACT_APP_NODE_ENV === 'production') {
-      url = process.env.REACT_APP_BACKEND_URL+'compile';
-    }
+    
+    let url = process.env.REACT_APP_BACKEND_URL+'compile';
 
     const data = {
       lang: langRef.current,

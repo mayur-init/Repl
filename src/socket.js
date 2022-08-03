@@ -1,11 +1,6 @@
 import { io } from 'socket.io-client';
 
-
-let url = 'http://localhost:5000/';
-
-if (process.env.REACT_APP_NODE_ENV === 'production') {
-    url = process.env.REACT_APP_BACKEND_URL;
-}
+let url = process.env.REACT_APP_BACKEND_URL;
 
 export const initSocket = async () => {
     const options = {
