@@ -157,8 +157,8 @@ function Editor() {
     //console.log(source_code
     let url = 'http://localhost:5000/compile';
 
-    if (process.env.REACT_APP_NODE_ENV == 'production') {
-      url = 'process.env.REACT_APP_BACKEND_URL'+'compile';
+    if (process.env.REACT_APP_NODE_ENV === 'production') {
+      url = process.env.REACT_APP_BACKEND_URL+'compile';
     }
 
     const data = {
