@@ -15,7 +15,7 @@ function Homepage() {
         {/* <DarkModeButton /> */}
       </div>
       <div className='p-6 m-4'>
-        <p className='flex justify-center p-3 text-6xl text-zinc-400'>CodeSync<HiOutlineCode className='m-2' /></p>
+        <p className='flex justify-center p-3 md:text-6xl text-5xl text-zinc-400'>CodeSync<HiOutlineCode className='m-2' /></p>
       </div>
       <div className='grid place-content-center pt-8 bg-gray-300 dark:bg-zinc-800 w-auto flex-shrink'>
         <div className='flex'>

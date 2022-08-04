@@ -55,7 +55,7 @@ function MessageBox() {
     }
 
     return (
-        <div className='flex flex-col justify-end pb-[9vh] h-[64vh] mt-[36vh]'>
+        <div className='flex flex-col justify-end pb-[9vh] h-[64vh] content-end mt-[27vh]'>
             <div className=' grid place-content-end bg-gray-200 dark:bg-zinc-900 border-zinc-700 dark:border-2 h-[56.8vh] w-[33vh] rounded-md p-3 m-3 absolute z-10'>
                 <ScrollToBottom className='h-[49vh] py-2'>
                     {messageList.map((messageContent, index) => {

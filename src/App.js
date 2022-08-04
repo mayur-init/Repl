@@ -9,7 +9,8 @@ class App extends Component {
   render() {
     return (
       <>
-        <div>
+        <div className="App">
+        <div className='w-auto h min-h-max min-w-max'>
           <Toaster
             position='top-right'
             toastOptions={{
@@ -21,7 +22,6 @@ class App extends Component {
             }}
           ></Toaster>
         </div>
-        <div className="App">
           <Router>
             <Routes>
               <Route path='/' element={<Homepage />} exact />

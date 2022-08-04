@@ -8,10 +8,11 @@ import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
 import { ACTIONS } from '../Actions';
 import Dropdown from './Dropdown';
+import SideBar from '../components/SideBar'
 import axios from 'axios';
 import { Buffer } from 'buffer';
 import { RoomContext } from '../Contexts/RoomContext';
-import { HiOutlineCode } from 'react-icons/hi';
+import { HiOutlineCode, HiMenuAlt4, HiX } from 'react-icons/hi';
 import { AiOutlineCaretRight } from 'react-icons/ai';
 import DarkModeButton from './DarkModeButton';
 import useDarkMode from '../hooks/useDarkMode';
@@ -137,7 +138,7 @@ function Editor() {
     }
   }, [input, socketRef.current]);
 
-  const ioClass = 'text-xl text-zinc-400 bg-gray-100 dark:bg-zinc-900 md:ml-2 mt-1 md:h-[91vh] h-[26vh] p-3 rounded-md'
+  const ioClass = 'text-xl text-zinc-400 bg-gray-100 dark:bg-zinc-900 md:ml-1 my-[3px] md:h-[91vh] h-[24vh] p-3 rounded-md'
 
   const replacerFunc = () => {
     const visited = new WeakSet();
@@ -156,8 +157,7 @@ function Editor() {
     //make a axios call to the server
     //console.log(source_code
     
-    // let url = process.env.REACT_APP_BACKEND_URL+'compile';
-    let url = 'https://codesync-init.herokuapp.com/compile';
+    let url = process.env.REACT_APP_BACKEND_URL+'compile';
 
     const data = {
       lang: langRef.current,
@@ -218,10 +218,10 @@ function Editor() {
 
 
   return (
-    <div className='h-screen'>
-      <div className='bg-gray-300 dark:bg-zinc-700 px-2 pb-2 h-full w-auto flex flex-col min-w-max'>
+    <div className=' z-10 h-screen min-h-max min-w-max'>
+      <div className='bg-gray-300 dark:bg-zinc-700 px-1 pb-2 h-full w-auto flex flex-col min-w-max'>
         <div className='flex flex-row bg-gray-100 dark:bg-zinc-900 mb-2 mt-1 rounded-md shadow-xl justify-between'>
-          <h1 className='flex text-2xl text-zinc-400 mt-2 mb-2 mx-4'>CodeSync<HiOutlineCode size={30} className='mx-2 my-1' />@{location.state.userName}</h1>
+          <h1 className='flex text-xl text-zinc-400 mt-2 mb-2 mx-4'>CodeSync<HiOutlineCode size={25} className='mx-2 my-1' />@{location.state.userName}</h1>
           <div className='self-center flex flex-row'>
             {/* <DarkModeButton /> */}
             <Dropdown options={['C', 'C++', 'Golang', 'Python', 'Javascript']} onOptionSelect={(option) => {
@@ -236,9 +236,10 @@ function Editor() {
           </div>
         </div>
 
-        <div>
-          <div className='md:flex md:h-[92vh]'>
-            <div className='md:h-[92vh] h-[60vh] md:w-8/12 w-full shadow-xl'>
+        <div className='flex'>
+            <SideBar/>
+          <div className='md:flex md:h-[92vh] w-full'>
+            <div className='md:h-[92vh] h-[42vh] md:w-8/12 w-full shadow-xl'>
               <textarea id='editor' className='p-4 bg-zinc-800 text-zinc-200 text-xl border-2 border-zinc-500 w-full'></textarea>
             </div>
 

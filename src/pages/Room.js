@@ -17,7 +17,6 @@ function Room() {
   const reactNavigator = useNavigate();
   const [clients, setClients] = useState([]);
   const [messageList, setMessageList] = useState([]);
-  const [isEditor, setIsEditor] = useState(true);
   const [isAudioEnabled, setAudioEnabled] = useState(false);
 
   let langRef = useRef('C++');
@@ -115,16 +114,12 @@ function Room() {
 
   return (
     <div>
-      <div className='flex flex-row w-screen h-screen'>
+      <div className='flex flex-row'>
       <RoomContext.Provider value={{socketRef, roomId, location, clients, codeRef, inputRef,
-       outputRef, langRef, messageList, setMessageList, isEditor, setIsEditor, colorTheme
+       outputRef, langRef, messageList, setMessageList, colorTheme
       }}>
-          <div className='bg-gray-200 dark:bg-zinc-900 min-w-max'>
-            <SideBar/>
-            </div>
           <div className='w-full'>
           <Editor />
-          {!isEditor?(<WhiteBoard/>):null}
           </div>
           </RoomContext.Provider>
       </div>
