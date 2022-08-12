@@ -99,10 +99,10 @@ function Editor() {
         if (code != null) {
           editorRef.current.setValue(code);
         }
-        if (outputRef != null) {
+        if (outputRef !== null) {
           setOutput(outputRef)
         }
-        if (lang != 'C++') {
+        if (lang !== 'C++') {
           langRef.current = lang;
         }
         input = inputRef;
@@ -224,14 +224,14 @@ function Editor() {
           <h1 className='flex text-xl text-zinc-400 mt-2 mb-2 mx-4'>CodeSync<HiOutlineCode size={25} className='mx-2 my-1' />@{location.state.userName}</h1>
           <div className='self-center flex flex-row'>
             {/* <DarkModeButton /> */}
-            <Dropdown options={['C', 'C++', 'Golang', 'Python', 'Javascript']} onOptionSelect={(option) => {
+            <Dropdown options={['C', 'C++', 'Java', 'Golang', 'Python', 'Javascript']} onOptionSelect={(option) => {
               langRef.current = option;
               //console.log(langRef.current);
               socketRef.current.emit('lang_change', {
                 lang: option,
                 roomId
               });
-            }} socketRef={socketRef} lang={langRef.current} />
+            }} socketRef={socketRef} lang={langRef.current} editorRef={editorRef} />
             <button className='flex bg-green-500 hover:bg-green-600 btn btn-primary mr-4 text-zinc-700 dark:text-zinc-700 pl-4 pt-1' onClick={() => { compiling = true; RunCode() }}>Run<AiOutlineCaretRight size={15} className='my-1' /></button>
           </div>
         </div>

@@ -5,34 +5,30 @@ import Room from './pages/Room'
 import Roomlogin from './pages/Roomlogin'
 import Homepage from './pages/Homepage'
 
-class App extends Component {
-  render() {
-    return (
-      <>
-        <div className="App">
-        <div className='w-auto h min-h-max min-w-max'>
-          <Toaster
-            position='top-right'
-            toastOptions={{
-              success: {
-                theme: {
-                  primary: "green-400",
-                },
+function App() {
+  return (
+    <>
+      <div>
+        <Toaster
+          position='top-right'
+          toastOptions={{
+            success: {
+              theme: {
+                primary: "green-400",
               },
-            }}
-          ></Toaster>
-        </div>
-          <Router>
-            <Routes>
-              <Route path='/' element={<Homepage />} exact />
-              <Route path="/room/:roomId" element={<Room />} />
-              <Route path="/room" element={<Roomlogin />} />
-            </Routes>
-          </Router>
-        </div>
-      </>
-    );
-  }
+            },
+          }}
+        ></Toaster>
+      </div>
+      <Router>
+        <Routes>
+          <Route path='/' element={<Homepage />} exact />
+          <Route path="/room/:roomId" element={<Room />} />
+          <Route path="/room" element={<Roomlogin />} />
+        </Routes>
+      </Router>
+    </>
+  );
 }
 
 export default App;

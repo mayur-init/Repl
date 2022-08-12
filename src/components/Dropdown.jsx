@@ -2,13 +2,23 @@ import React, { useEffect, useState } from 'react'
 import classNames from 'classnames';
 import {HiOutlineChevronDown} from 'react-icons/hi';
 
-function Dropdown({ options, onOptionSelect, socketRef, lang}) {
+function Dropdown({ options, onOptionSelect, socketRef, lang, editorRef}) {
 
     const [isActive, setActive] = useState(false);
     const buttonClasses = 'text-xl text-zinc-400 hover:text-zinc-500 px-6';
     let [language, setLanguage] = useState('C++');
 
     useEffect(() =>{
+
+        if(language === 'Java' && editorRef != null){
+            const note = '/* Main method must be declared within a class Main */';
+            editorRef.current.setValue(note);
+        }else{
+            if(editorRef.current != null){
+                editorRef.current.setValue('');
+            }
+        }
+
         if(socketRef.current){
             socketRef.current.on('lang_change', ({lang}) =>{
                 setLanguage(lang);
