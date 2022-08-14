@@ -73,12 +73,9 @@ function Editor() {
           })
           //console.log(code);
         }
-
       });
-
     }
     init();
-
 
     //cleaning function
     return () => {
@@ -142,7 +139,7 @@ function Editor() {
     }
   }, [input, socketRef.current]);
 
-  const ioClass = 'text-xl text-zinc-400 bg-gray-100 dark:bg-zinc-900 md:ml-1 my-[3px] md:h-[91vh] h-[24vh] p-3 rounded-md'
+  const ioClass = 'text-xl text-zinc-400 bg-gray-100 dark:bg-zinc-900 md:ml-1 my-[2.8px] md:h-[91vh] h-[24vh] p-3 rounded-md'
 
   const replacerFunc = () => {
     const visited = new WeakSet();
@@ -222,8 +219,8 @@ function Editor() {
 
 
   return (
-    <div className='h-screen w-screen'>
-      <div className='bg-gray-300 dark:bg-zinc-700 px-2 h-screen w-screen flex flex-col min-w-max'>
+    <div className='h-screen w-screen overflow-y-hidden'>
+      <div className='bg-gray-300 dark:bg-zinc-700 px-2 h-full md:w-screen w-[100%] flex flex-col min-w-max'>
         <div className='flex flex-row bg-gray-100 dark:bg-zinc-900 mb-2 mt-1 rounded-md shadow-xl justify-between'>
           <h1 className='flex text-xl text-zinc-400 mt-2 mb-2 mx-4'>CodeSync<HiOutlineCode size={25} className='mx-2 my-1' />@{location.state.userName}</h1>
           <div className='self-center flex flex-row'>

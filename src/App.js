@@ -18,7 +18,7 @@ function App() {
               },
             },
           }}
-        ></Toaster>
+        />
       </div>
       <Router>
         <Routes>
