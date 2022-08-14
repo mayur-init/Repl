@@ -6,11 +6,10 @@ import { HiOutlineCode } from 'react-icons/hi';
 
 function Homepage() {
 
-  //using dark theme;
   const [colorTheme, setTheme] = useDarkMode();
 
   return (
-    <div className='bg-gray-200 dark:bg-zinc-900 h-screen py-6'>
+    <div className='bg-gray-200 dark:bg-zinc-900 h-screen py-4'>
       <div className='flex flex-row justify-end h-[15vh] px-6'>
         {/* <DarkModeButton /> */}
       </div>

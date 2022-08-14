@@ -118,7 +118,7 @@ function Room() {
       <RoomContext.Provider value={{socketRef, roomId, location, clients, codeRef, inputRef,
        outputRef, langRef, messageList, setMessageList, colorTheme
       }}>
-          <div className='w-full'>
+          <div>
           <Editor />
           </div>
           </RoomContext.Provider>

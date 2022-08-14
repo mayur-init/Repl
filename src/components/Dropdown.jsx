@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import classNames from 'classnames';
 import {HiOutlineChevronDown} from 'react-icons/hi';
 
-function Dropdown({ options, onOptionSelect, socketRef, lang, editorRef}) {
+function Dropdown({ options, onOptionSelect, socketRef, lang, editorRef, codeRef}) {
 
     const [isActive, setActive] = useState(false);
     const buttonClasses = 'text-xl text-zinc-400 hover:text-zinc-500 px-6';
@@ -10,12 +10,12 @@ function Dropdown({ options, onOptionSelect, socketRef, lang, editorRef}) {
 
     useEffect(() =>{
 
-        if(language === 'Java' && editorRef != null){
+        if(language === 'Java' && editorRef != null && codeRef.current != null){
             const note = '/* Main method must be declared within a class Main */';
-            editorRef.current.setValue(note);
+            editorRef.current.setValue(note + '\n' + codeRef.current);
         }else{
-            if(editorRef.current != null){
-                editorRef.current.setValue('');
+            if(editorRef.current != null && codeRef.current != null){
+                editorRef.current.setValue(codeRef.current);
             }
         }
 
@@ -28,7 +28,7 @@ function Dropdown({ options, onOptionSelect, socketRef, lang, editorRef}) {
         return () =>{
             socketRef.current.off('lang_change');
         }
-    },[socketRef.current]);
+    },[socketRef.current, language]);
 
     useEffect(() =>{
         setLanguage(lang);

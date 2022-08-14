@@ -5,6 +5,7 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material-darker.css';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/addon/edit/closetag';
+import 'codemirror/keymap/sublime';
 import 'codemirror/addon/edit/closebrackets';
 import { ACTIONS } from '../Actions';
 import Dropdown from './Dropdown';
@@ -12,7 +13,7 @@ import SideBar from '../components/SideBar'
 import axios from 'axios';
 import { Buffer } from 'buffer';
 import { RoomContext } from '../Contexts/RoomContext';
-import { HiOutlineCode, HiMenuAlt4, HiX } from 'react-icons/hi';
+import { HiOutlineCode, HiMenuAlt4, HiX, HiCube } from 'react-icons/hi';
 import { AiOutlineCaretRight } from 'react-icons/ai';
 import DarkModeButton from './DarkModeButton';
 import useDarkMode from '../hooks/useDarkMode';
@@ -24,24 +25,27 @@ function Editor() {
   let [input, setInput] = useState(null);
   let [source, setSource] = useState('');
   let [output, setOutput] = useState('Output');
-  const [isActive, setIsActive] = useState(true);
+  let [isCompiling, setCompiling] = useState(false);
 
-  const [isDarkMode, setDarkMode] = useState(false);
+  const [colorTheme, setTheme] = useDarkMode();
 
 
   let compiling = false;
 
+  useEffect(() =>{
+    editorRef.current = CodeMirror.fromTextArea(document.getElementById('editor'), {
+      mode: { name: 'javascript', json: true },
+      keyMap: 'sublime',
+      theme: 'material-darker',
+      lint: true,
+      autoCloseTags: true,
+      autoCloseBrackets: true,
+      lineNumbers: true,
+    });
+  },[colorTheme])
+
   useEffect(() => {
     async function init() {
-
-      editorRef.current = CodeMirror.fromTextArea(document.getElementById('editor'), {
-        mode: { name: 'javascript', json: true },
-        theme: 'material-darker',
-        lint: true,
-        autoCloseTags: true,
-        autoCloseBrackets: true,
-        lineNumbers: true,
-      });
 
       //listening for editor code change event
       editorRef.current.on('changes', (instance, changes) => {
@@ -156,7 +160,7 @@ function Editor() {
   async function RunCode() {
     //make a axios call to the server
     //console.log(source_code
-    
+    setCompiling(!isCompiling);
     let url = process.env.REACT_APP_BACKEND_URL+'compile';
 
     const data = {
@@ -169,7 +173,8 @@ function Editor() {
       url: url,
       data: JSON.parse(JSON.stringify(data, replacerFunc()))
     });
-
+    isCompiling = !isCompiling;
+    setCompiling(!isCompiling);
     //console.log(response);
     if (langRef.current === 'Python' || langRef.current === 'Javascript') {
       if (response.data.stderr !== null) {
@@ -209,17 +214,16 @@ function Editor() {
       }
     }
     //console.log(langRef.current, output);
-    compiling = false;
     socketRef.current.emit('code_run', { roomId, output })
     //on code change
     inputRef.current = input,
-      outputRef.current = output;
+    outputRef.current = output;
   }
 
 
   return (
-    <div className=' z-10 h-screen min-h-max min-w-max'>
-      <div className='bg-gray-300 dark:bg-zinc-700 px-1 pb-2 h-full w-auto flex flex-col min-w-max'>
+    <div className='h-screen w-screen'>
+      <div className='bg-gray-300 dark:bg-zinc-700 px-2 h-screen w-screen flex flex-col min-w-max'>
         <div className='flex flex-row bg-gray-100 dark:bg-zinc-900 mb-2 mt-1 rounded-md shadow-xl justify-between'>
           <h1 className='flex text-xl text-zinc-400 mt-2 mb-2 mx-4'>CodeSync<HiOutlineCode size={25} className='mx-2 my-1' />@{location.state.userName}</h1>
           <div className='self-center flex flex-row'>
@@ -231,15 +235,16 @@ function Editor() {
                 lang: option,
                 roomId
               });
-            }} socketRef={socketRef} lang={langRef.current} editorRef={editorRef} />
-            <button className='flex bg-green-500 hover:bg-green-600 btn btn-primary mr-4 text-zinc-700 dark:text-zinc-700 pl-4 pt-1' onClick={() => { compiling = true; RunCode() }}>Run<AiOutlineCaretRight size={15} className='my-1' /></button>
+            }} socketRef={socketRef} lang={langRef.current} editorRef={editorRef} codeRef={codeRef}/>
+            {!isCompiling?(<button className='flex bg-green-500 hover:bg-green-600 btn btn-primary mr-4 text-zinc-700 dark:text-zinc-700 pl-4 pt-1' onClick={RunCode}>Run<AiOutlineCaretRight size={15} className='my-1' /></button>):
+            (<button className='flex bg-gray-500 hover:bg-gray-600 btn btn-primary mr-4 text-zinc-700 dark:text-zinc-700 pl-4 pt-1'><HiCube size={25} className='mb-1 ml-1 mr-2' /></button>)}
           </div>
         </div>
 
         <div className='flex'>
             <SideBar/>
-          <div className='md:flex md:h-[92vh] w-full'>
-            <div className='md:h-[92vh] h-[42vh] md:w-8/12 w-full shadow-xl'>
+          <div className='md:flex md:h-[92vh] w-full h-screen'>
+            <div className='md:h-[91.7vh] h-[42vh] md:w-8/12 w-full shadow-xl'>
               <textarea id='editor' className='p-4 bg-zinc-800 text-zinc-200 text-xl border-2 border-zinc-500 w-full'></textarea>
             </div>
 
@@ -253,7 +258,7 @@ function Editor() {
               }}>
               </textarea>
               <div className={ioClass}>
-                <pre className='overflow-auto'>{compiling ? 'Compiling...' : output.stdout}</pre>
+                <pre className='overflow-auto'>{isCompiling ? 'Compiling...' : output.stdout}</pre>
                 <br />
                 {output.execution_time}
               </div>
