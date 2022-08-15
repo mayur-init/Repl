@@ -37,7 +37,7 @@ function SideBar() {
     return (
         <div className='flex'>
             <div className='bg-gray-100 dark:bg-zinc-900 md:h-[91.7vh] h-[91vh] w-[55px] mr-1 flex flex-col rounded-r-md justify-center p-2'>
-                <div className='flex flex-col h-full justify-end'>
+                <div className='flex flex-col h-full justify-start my-[20vh]'>
                     <button onClick={copyRoomId}><HiOutlinePlusCircle size={32} className='text-zinc-400 my-3'/></button>
                     <button onClick={() => { setIsActive(!isActive) }}><HiOutlineUserCircle size={32} className='text-zinc-400 my-2'/></button>
                     {/* <button><HiOutlinePencilAlt size={36} className='text-zinc-400 my-2'/></button> */}

@@ -238,12 +238,12 @@ function Editor() {
         <div className='flex'>
             <SideBar/>
           <div className='md:flex md:h-[92vh] w-full h-screen'>
-            <div className='md:h-[91.7vh] h-[47.8vh] mb-1 md:w-8/12 w-[98.8%] text-xl overflow-hidden shadow-xl'>
+            <div className='md:h-[91.7vh] h-[47.8vh] mb-1 md:w-8/12 w-[98.8%] text-xl shadow-xl'>
               <textarea id='editor' className='p-4 bg-zinc-800 text-zinc-200 text-xl border-2 border-zinc-500 w-full'></textarea>
             </div>
 
             <div className='flex flex-col md:w-1/3 w-full'>
-              <textarea className='text-xl text-zinc-400 bg-gray-100 dark:bg-zinc-900 md:ml-1 md:h-[26.1vh] h-[18vh] p-3 mr-1 rounded-md' id='input' spellCheck='false' placeholder='Input' onChange={(e) => {
+              <textarea className='text-xl text-zinc-400 bg-gray-100 dark:bg-zinc-900 md:ml-1 md:h-[26.1vh] h-[18vh] p-3 mr-1 no-scrollbar overflow-scroll rounded-md' id='input' spellCheck='false' placeholder='Input' onChange={(e) => {
                 input = e.target.value;
                 socketRef.current.emit('input_change', {
                   input,
@@ -252,9 +252,10 @@ function Editor() {
               }}>
               </textarea>
               <div className='text-xl text-zinc-400 bg-gray-100 dark:bg-zinc-900 md:ml-1 md:h-[65vh] h-[24vh] p-3 mr-1 mt-1 rounded-md'>
-                <pre className='overflow-auto'>{isCompiling ? 'Compiling...' : output.stdout}</pre>
+                
+                <pre className='no-scrollbar overflow-scroll'>{isCompiling ? 'Compiling...' : output.stdout}</pre>
                 <br />
-                <h3 className='text-green-500'>{output === null?(output.execution_time + '\n' + output.memory):null}</h3>
+                <h3 className='text-green-600'>{output.execution_time}</h3>
               </div>
             </div>
           </div>
