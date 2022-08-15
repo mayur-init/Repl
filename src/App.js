@@ -7,7 +7,7 @@ import Homepage from './pages/Homepage'
 
 function App() {
   return (
-    <>
+    <div>
       <div>
         <Toaster
           position='top-right'
@@ -27,7 +27,7 @@ function App() {
           <Route path="/room" element={<Roomlogin />} />
         </Routes>
       </Router>
-    </>
+    </div>
   );
 }
 

@@ -9,7 +9,7 @@ import 'codemirror/keymap/sublime';
 import 'codemirror/addon/edit/closebrackets';
 import { ACTIONS } from '../Actions';
 import Dropdown from './Dropdown';
-import SideBar from '../components/SideBar'
+import SideBar from './SideBar'
 import axios from 'axios';
 import { Buffer } from 'buffer';
 import { RoomContext } from '../Contexts/RoomContext';
@@ -17,6 +17,7 @@ import { HiOutlineCode, HiMenuAlt4, HiX, HiCube } from 'react-icons/hi';
 import { AiOutlineCaretRight } from 'react-icons/ai';
 import DarkModeButton from './DarkModeButton';
 import useDarkMode from '../hooks/useDarkMode';
+
 
 function Editor() {
 
@@ -29,8 +30,6 @@ function Editor() {
 
   const [colorTheme, setTheme] = useDarkMode();
 
-
-  let compiling = false;
 
   useEffect(() =>{
     editorRef.current = CodeMirror.fromTextArea(document.getElementById('editor'), {
@@ -139,8 +138,6 @@ function Editor() {
     }
   }, [input, socketRef.current]);
 
-  const ioClass = 'text-xl text-zinc-400 bg-gray-100 dark:bg-zinc-900 md:ml-1 my-[2.8px] md:h-[91vh] h-[24vh] p-3 rounded-md'
-
   const replacerFunc = () => {
     const visited = new WeakSet();
     return (key, value) => {
@@ -220,8 +217,8 @@ function Editor() {
 
   return (
     <div className='h-screen w-screen overflow-y-hidden'>
-      <div className='bg-gray-300 dark:bg-zinc-700 px-2 h-full md:w-screen w-[100%] flex flex-col min-w-max'>
-        <div className='flex flex-row bg-gray-100 dark:bg-zinc-900 mb-2 mt-1 rounded-md shadow-xl justify-between'>
+      <div className='bg-gray-300 dark:bg-zinc-700 h-full md:w-screen w-[100%] flex flex-col min-w-max'>
+        <div className='flex flex-row bg-gray-100 dark:bg-zinc-900 mb-2 p-1 shadow-xl justify-between'>
           <h1 className='flex text-xl text-zinc-400 mt-2 mb-2 mx-4'>CodeSync<HiOutlineCode size={25} className='mx-2 my-1' />@{location.state.userName}</h1>
           <div className='self-center flex flex-row'>
             {/* <DarkModeButton /> */}
@@ -233,7 +230,7 @@ function Editor() {
                 roomId
               });
             }} socketRef={socketRef} lang={langRef.current} editorRef={editorRef} codeRef={codeRef}/>
-            {!isCompiling?(<button className='flex bg-green-500 hover:bg-green-600 btn btn-primary mr-4 text-zinc-700 dark:text-zinc-700 pl-4 pt-1' onClick={RunCode}>Run<AiOutlineCaretRight size={15} className='my-1' /></button>):
+            {!isCompiling?(<button className='flex bg-green-500 hover:bg-green-600 btn btn-primary mr-4 text-zinc-700 dark:text-zinc-700 pl-4 pt-1' onClick={RunCode}>Run<AiOutlineCaretRight size={15} className='my-[5px]' /></button>):
             (<button className='flex bg-gray-500 hover:bg-gray-600 btn btn-primary mr-4 text-zinc-700 dark:text-zinc-700 pl-4 pt-1'><HiCube size={25} className='mb-1 ml-1 mr-2' /></button>)}
           </div>
         </div>
@@ -241,12 +238,12 @@ function Editor() {
         <div className='flex'>
             <SideBar/>
           <div className='md:flex md:h-[92vh] w-full h-screen'>
-            <div className='md:h-[91.7vh] h-[42vh] md:w-8/12 w-full shadow-xl'>
+            <div className='md:h-[91.7vh] h-[47.8vh] mb-1 md:w-8/12 w-[98.8%] text-xl overflow-hidden shadow-xl'>
               <textarea id='editor' className='p-4 bg-zinc-800 text-zinc-200 text-xl border-2 border-zinc-500 w-full'></textarea>
             </div>
 
             <div className='flex flex-col md:w-1/3 w-full'>
-              <textarea className={ioClass} id='input' spellCheck='false' placeholder='Input' onChange={(e) => {
+              <textarea className='text-xl text-zinc-400 bg-gray-100 dark:bg-zinc-900 md:ml-1 md:h-[26.1vh] h-[18vh] p-3 mr-1 rounded-md' id='input' spellCheck='false' placeholder='Input' onChange={(e) => {
                 input = e.target.value;
                 socketRef.current.emit('input_change', {
                   input,
@@ -254,10 +251,10 @@ function Editor() {
                 })
               }}>
               </textarea>
-              <div className={ioClass}>
+              <div className='text-xl text-zinc-400 bg-gray-100 dark:bg-zinc-900 md:ml-1 md:h-[65vh] h-[24vh] p-3 mr-1 mt-1 rounded-md'>
                 <pre className='overflow-auto'>{isCompiling ? 'Compiling...' : output.stdout}</pre>
                 <br />
-                {output.execution_time}
+                <h3 className='text-green-500'>{output === null?(output.execution_time + '\n' + output.memory):null}</h3>
               </div>
             </div>
           </div>

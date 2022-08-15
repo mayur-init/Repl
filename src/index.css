@@ -4,6 +4,7 @@
     line-height:2rem;
     border-radius: 8px;
     padding: 4px;
+    overflow: hidden;
 }
 
 @tailwind base;
@@ -39,7 +40,7 @@
     .scrollbar::-webkit-scrollbar-thumb:hover {
       background: #c0a0b9;
     }
-}
+} */
 
 @layer utilities {
     .no-scrollbar::-webkit-scrollbar {
@@ -50,6 +51,6 @@
       -ms-overflow-style: none; 
       scrollbar-width: none; 
     }
-} */
+}
 
 

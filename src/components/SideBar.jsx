@@ -36,7 +36,7 @@ function SideBar() {
 
     return (
         <div className='flex'>
-            <div className='bg-gray-100 dark:bg-zinc-900 md:h-[91.7vh] h-[91vh] w-[55px] mr-1 flex flex-col rounded-md justify-center p-2'>
+            <div className='bg-gray-100 dark:bg-zinc-900 md:h-[91.7vh] h-[91vh] w-[55px] mr-1 flex flex-col rounded-r-md justify-center p-2'>
                 <div className='flex flex-col h-full justify-end'>
                     <button onClick={copyRoomId}><HiOutlinePlusCircle size={32} className='text-zinc-400 my-3'/></button>
                     <button onClick={() => { setIsActive(!isActive) }}><HiOutlineUserCircle size={32} className='text-zinc-400 my-2'/></button>
@@ -46,7 +46,7 @@ function SideBar() {
                 <div className='flex flex-col justify-end h-full'>
                     <button onClick={() => { setMessageBox(!messageBox) }}><HiOutlineAnnotation size={32} className='text-zinc-400 my-3'/></button>
                     {/* <button onClick={() => { setAudioEnabled(!isAudioEnabled)}}><HiOutlineMicrophone size={36} className='text-zinc-400 my-2'/></button> */}
-                    <button onClick={leaveRoom} className='self-end mb-4'><HiOutlineLogout size={32} className='text-zinc-400 my-2 '/></button>
+                    <button onClick={leaveRoom} className='self-end mb-4'><HiOutlineLogout size={32} className='text-zinc-400 my-2 mr-[1px] '/></button>
                 </div>
 
             </div>
