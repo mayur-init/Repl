@@ -242,7 +242,7 @@ function Editor() {
               <textarea id='editor' className='p-4 bg-zinc-800 text-zinc-200 text-xl border-2 border-zinc-500 w-full'></textarea>
             </div>
 
-            <div className='flex flex-col md:w-1/3 w-full'>
+            <div className='flex flex-col md:w-1/2 lg:w-1/3 w-full'>
               <textarea className='text-xl text-zinc-400 bg-gray-100 dark:bg-zinc-900 md:ml-1 md:h-[26.1vh] h-[18vh] p-3 mr-1 no-scrollbar overflow-scroll rounded-md' id='input' spellCheck='false' placeholder='Input' onChange={(e) => {
                 input = e.target.value;
                 socketRef.current.emit('input_change', {
