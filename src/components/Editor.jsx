@@ -29,7 +29,7 @@ function Editor() {
   let [isCompiling, setCompiling] = useState(false);
 
   const [colorTheme, setTheme] = useDarkMode();
-
+  // console.log(roomId);
 
   useEffect(() =>{
     editorRef.current = CodeMirror.fromTextArea(document.getElementById('editor'), {
@@ -214,12 +214,15 @@ function Editor() {
     outputRef.current = output;
   }
 
+  // console.log(location);
+  // console.log(socketRef);
+
 
   return (
     <div className='h-screen w-screen overflow-y-hidden'>
       <div className='bg-gray-300 dark:bg-zinc-700 h-full md:w-screen w-[100%] flex flex-col min-w-max'>
         <div className='flex flex-row bg-gray-100 dark:bg-zinc-900 mb-2 p-1 shadow-xl justify-between'>
-          <h1 className='flex text-xl text-zinc-400 mt-2 mb-2 mx-4'>CodeSync<HiOutlineCode size={25} className='mx-2 my-1' />@{location.state.userName}</h1>
+          <h1 className='flex text-xl text-zinc-400 mt-2 mb-2 mx-2'>CodeSync<HiOutlineCode size={25} className='mx-1 my-1' />@{roomId}</h1>
           <div className='self-center flex flex-row'>
             {/* <DarkModeButton /> */}
             <Dropdown options={['C', 'C++', 'Java', 'Golang', 'Python', 'Javascript']} onOptionSelect={(option) => {
@@ -230,6 +233,7 @@ function Editor() {
                 roomId
               });
             }} socketRef={socketRef} lang={langRef.current} editorRef={editorRef} codeRef={codeRef}/>
+            <button className='btn btn-primary border-zinc-700 border-2 mx-4'>Save</button>
             {!isCompiling?(<button className='flex bg-green-500 hover:bg-green-600 btn btn-primary mr-4 text-zinc-700 dark:text-zinc-700 pl-4 pt-1' onClick={RunCode}>Run<AiOutlineCaretRight size={15} className='my-[5px]' /></button>):
             (<button className='flex bg-gray-500 hover:bg-gray-600 btn btn-primary mr-4 text-zinc-700 dark:text-zinc-700 pl-4 pt-1'><HiCube size={25} className='mb-1 ml-1 mr-2' /></button>)}
           </div>

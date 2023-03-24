@@ -37,9 +37,9 @@ function SideBar() {
     return (
         <div className='flex'>
             <div className='bg-gray-100 dark:bg-zinc-900 md:h-[91.7vh] h-[91vh] w-[55px] mr-1 flex flex-col rounded-r-md justify-center p-2'>
-                <div className='flex flex-col h-full justify-start my-[20vh]'>
-                    <button onClick={copyRoomId}><HiOutlinePlusCircle size={32} className='text-zinc-400 my-3'/></button>
+                <div className='flex flex-col h-full justify-start my-[2vh]'>
                     <button onClick={() => { setIsActive(!isActive) }}><HiOutlineUserCircle size={32} className='text-zinc-400 my-2'/></button>
+                    <button onClick={copyRoomId}><HiOutlinePlusCircle size={32} className='text-zinc-400 my-3'/></button>
                     {/* <button><HiOutlinePencilAlt size={36} className='text-zinc-400 my-2'/></button> */}
                 </div>
 
@@ -50,7 +50,7 @@ function SideBar() {
                 </div>
 
             </div>
-            {isActive ? (<div className='flex flex-col bg-gray-100 dark:bg-zinc-900 ml-[7.7vh] my-[12vh] w-[25vh] dark:border-2 dark:border-zinc-700 rounded-md h-[56vh] p-4 justify-between absolute z-10'>
+            {isActive ? (<div className='flex flex-col bg-gray-100 dark:bg-zinc-900 ml-[7.7vh] my-[2vh] w-[25vh] dark:border-2 dark:border-zinc-700 rounded-md h-[56vh] p-4 justify-between absolute z-10'>
                 <div>
                     <h3 className='text-zinc-400 my-2'>Connected: <span className='text-zinc-400 m-1'>{clients.length}</span></h3>
                     <hr className='border-zinc-200 dark:border-zinc-700 bottom-2' />

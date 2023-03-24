@@ -35,7 +35,7 @@ function Homepage() {
           <div className='flex justify-center h-[160vh] md:h-auto bg-gray-200 dark:bg-zinc-900 p-[4vh] lg:p-[10vh] md:mt-[2vh] md:mb-[22vh] lg:mb-[10vh]'>
             <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-1 h-[60vh] md:w-[70vh] lg:w-[120vh] justify-items-center '>
               <div className='h-[21vh] w-[32vh] my-4 bg-gray-300 dark:bg-zinc-800 rounded-xl p-3'>
-                <img src='./Images/c.svg' alt='python' className='h-[18vh] w-full' />
+                <img src='./Images/c.svg' alt='python' className='h-[18vh] opacity-[90%] w-full' />
               </div>
               <div className='h-[21vh] w-[32vh] my-4 bg-gray-300 dark:bg-zinc-800 rounded-xl p-3'>
                 <img src='./Images/java.svg' alt='python' className='h-[18vh] w-full' />
@@ -44,7 +44,7 @@ function Homepage() {
                 <img src='./Images/python.svg' alt='python' className='h-[18vh] w-full mx-[7vh]' />
               </div>
               <div className='h-[21vh] w-[32vh] my-4 bg-gray-300 dark:bg-zinc-800 rounded-xl p-3'>
-                <img src='./Images/c++.svg' alt='python' className='h-[18vh] w-full mx-[8vh]' />
+                <img src='./Images/c++.svg' alt='python' className='h-[18vh] ml-[6.5vh] w-full' />
               </div>
               <div className='h-[21vh] w-[32vh] my-4 bg-gray-300 dark:bg-zinc-800 rounded-xl p-3'>
                 <img src='./Images/golang.svg' alt='python' className='h-[18vh] w-full' />
