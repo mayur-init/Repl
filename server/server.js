@@ -18,7 +18,9 @@ app.use(bodyParser.json());
 app.use(router);
 
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+    // path: process.env.REACT_APP_BACKEND_URL,
+});
 
 //must be stored in a consistent db
 const userSocketMap = {};
@@ -128,4 +130,5 @@ if(process.env.NODE_ENV === 'production'){
 //---------------------------------------------------------------------
 
 router.post('/compile', codeRunController.codeRun);
-server.listen(PORT, () => {console.log(`listening on port ${PORT}...`)});
+server.listen(PORT, () => {
+    if(process.env.NODE_ENV === "development"){console.log(`listening on port ${PORT}...`)}});
